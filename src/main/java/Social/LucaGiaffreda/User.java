@@ -47,13 +47,13 @@ public User(String nickname,int id, String adress) {
  						if(a.getMytype()==App.type.friends) {
  						if(connector.hammingDistance(a.getText(), profile_key)<2) {
 							Object newFriends[]= {a.getNickname(),a.getAdress()};
- 			 					if(!friendsList.contains(newFriends))
- 			 					{
+ 			 					//if(!friendsList.contains(newFriends))
+ 			 					//{
  			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"con indirizzo"+a.getAdress()+"sender ="+sender+"\n\n");
  			 					terminal.printf("\n"+peerid+" risultati getfreinds"+connector.getFriends5b(nickname, a.getNickname(),sender)+"\n\n");
 						
  			 					friendsList.add(newFriends);
- 			 					}
+ 			 					//}
  			 				}else {
  			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
  			 					for (int i=0;i<friendsList.size();i++) {
