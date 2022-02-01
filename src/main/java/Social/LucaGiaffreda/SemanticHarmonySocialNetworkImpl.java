@@ -152,8 +152,8 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 			 }*/
 			
-			store(_nick_name, "ip");
-			get( _nick_name);
+			store2(_nick_name, "ip");
+			//get( _nick_name);
 			if(peerId==0) {
 				store("test", "ip");
 				
@@ -276,6 +276,22 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			e.printStackTrace();
 		}
 	    }
+	  public void store2(String name, String ip) throws IOException {
+	    	try {
+	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
+			futureGet.awaitUninterruptibly();
+			if (futureGet.isSuccess() && futureGet.isEmpty()) {
+				HashSet<PeerAddress> peers_on_topic;
+				 peers_on_topic=new HashSet<PeerAddress>();
+	        _dht.put(Number160.createHash(name)).data(new Data((new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+	        peers_on_topic.add(_dht.peer().peerAddress());
+	        _dht.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+	        System.out.print("put test");
+			}
+	    } catch (Exception e) {
+			e.printStackTrace();
+		}
+	    } 
 	  public String get(String name) throws ClassNotFoundException, IOException {
 	        FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 	        futureGet.awaitUninterruptibly();
