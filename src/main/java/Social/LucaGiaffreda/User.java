@@ -76,6 +76,7 @@ public User(String nickname,int id, String adress) {
 								} else {
 								terminal.printf("\n"+peerid+" aggiunge un nuovo amico che ha i dati"+a+"\n\n");
 								Object newFriends[]= {a.getNickname(),a.getAdress()};
+								connector.addFriends(a.getNickname(), sender);
 								friendsList.add(newFriends);
 								}
  			}
@@ -160,8 +161,8 @@ public int getId() {
 public void setId(int id) {
 	this.Id = id;
 }
-public List <Object[]> getFriendsList() {
-	return friendsList;
+public List getFriendsList() {
+	return connector.getFriends();
 }
 public void setFriendsList(List <Object[]> freindsList) {
 	this.friendsList = freindsList;

@@ -12,6 +12,7 @@ import org.beryx.textio.TextTerminal;
 
 
 import net.tomp2p.dht.FutureGet;
+import net.tomp2p.dht.FuturePut;
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.futures.BaseFutureAdapter;
@@ -157,6 +158,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			//get( _nick_name);
 			if(peerId==0) {
 				store("test", "ip");
+				searchFriends2b("test", _nick_name, _profile_key);
 				
 			}else {
 				store("test", "ip");
@@ -175,7 +177,37 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 
 	@Override
 	public List<String> getFriends() {
-		// TODO Auto-generated method stub
+		FutureGet futureGet = _dht.get(Number160.createHash("friendsList")).start();
+		futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+			 @Override
+			 public void operationComplete(FutureGet future) throws Exception {
+			  if(future.isSuccess()) { // this flag indicates if the future was successful
+			   System.out.println("success");
+			   
+			  } else {
+			   System.out.println("failure");
+			  }
+			 }
+			}).awaitListenersUninterruptibly();
+		if(futureGet.isSuccess()) {
+		try {
+			ArrayList<Object[]> fList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+			ArrayList<String> friendsName =new ArrayList<String>();
+			for(Object[] friends:fList)
+			{
+				friendsName.add((String) friends[0]);
+			}
+			return friendsName;
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}else {
+			 System.out.println("non esiste");
+		}
 		return null;
 	}
 	public int hammingDistance(String a, String b) {
@@ -202,7 +234,8 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					  }
 					 }
 					}).awaitListenersUninterruptibly();
-				
+				/* FuturePut future = _dht.put(Number160.createHash(profile))
+                         .data(new Data(name)).start().awaitUninterruptibly();*/
 				if (futureGet.isSuccess()) {
 					
 					test=new App("prova", peerId,name,_dht.peer().peerAddress());
@@ -211,6 +244,80 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					
 					futureDirect.awaitListenersUninterruptibly();
 				
+					return true;
+					
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+			}
+	  public boolean getFriends5c(String name,String profile, PeerAddress adress) throws IOException {
+		  App test;
+		  try {
+				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
+				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+					 @Override
+					 public void operationComplete(FutureGet future) throws Exception {
+					  if(future.isSuccess()) { // this flag indicates if the future was successful
+					   System.out.println("success");
+					   
+					  } else {
+					   System.out.println("failure");
+					  }
+					 }
+					}).awaitListenersUninterruptibly();
+				/* FuturePut future = _dht.put(Number160.createHash(profile))
+                         .data(new Data(name)).start().awaitUninterruptibly();*/
+				addFriends(profile, adress);
+				if (futureGet.isSuccess()) {
+					
+					test=new App("prova", peerId,name,_dht.peer().peerAddress());
+					test.setMytype(App.type.response);
+					FutureDirect futureDirect = _dht.peer().sendDirect(adress).object(test).start();
+					
+					futureDirect.awaitListenersUninterruptibly();
+				
+					return true;
+					
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+			}
+	  public boolean addFriends(String profile, PeerAddress adress) throws IOException {
+		  App test;
+		  try {
+				FutureGet futureGet = _dht.get(Number160.createHash("friendsList")).start();
+				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+					 @Override
+					 public void operationComplete(FutureGet future) throws Exception {
+					  if(future.isSuccess()) { // this flag indicates if the future was successful
+					   System.out.println("success");
+					   
+					  } else {
+					   System.out.println("failure");
+					  }
+					 }
+					}).awaitListenersUninterruptibly();
+				
+				if (futureGet.isSuccess()) {
+					ArrayList<Object[]> oldList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+					//ArrayList<Object[]> oldList=_dht.get(Number160.createHash("friendsList")).;
+					/* FuturePut future = _dht.put(Number160.createHash(profile))
+	                         .data(new Data(name)).start().awaitUninterruptibly();*/
+					
+					Object [] newfriends= {profile,adress};
+					oldList.add(newfriends);
+					_dht.put(Number160.createHash("friendsList"))
+                    .data(new Data(oldList)).start().awaitUninterruptibly();
+					/*test=new App("prova", peerId,name,_dht.peer().peerAddress());
+					test.setMytype(App.type.response);
+					FutureDirect futureDirect = _dht.peer().sendDirect(adress).object(test).start();
+					
+					futureDirect.awaitListenersUninterruptibly();
+				*/
 					return true;
 					
 				}
@@ -328,6 +435,9 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				System.out.println("nick name per send di test ="+test.getNickname());
 				test.setMytype(App.type.friends);
 				//Number160 id= new Number160(peerId);
+				// creazione della lista di amici 
+				 FuturePut fp = _dht.put(Number160.createHash("friendsList")).data(new Data(friendList))
+                         .start().awaitUninterruptibly();
 				for(PeerAddress peer:peers_on_topic){
 					System.out.println("peer ="+peer.peerId()+" peeradress" +_dht.peer().peerAddress().peerId());
 					if(!(peer.equals(_dht.peer().peerAddress()))) {
@@ -408,6 +518,24 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					return true;
 		        }}catch (Exception e) {
 					
+				}
+	    	return false;
+	    }
+	  public boolean sendMessage2(PeerAddress destination, String source,Object message) {
+
+	    	FutureGet futureGet = _dht.get(Number160.createHash(source)).start();
+	        futureGet.awaitUninterruptibly();
+	        App test;
+	        try {
+		        if (futureGet.isSuccess()) {
+		        	test=new App("prova", peerId,source,_dht.peer().peerAddress());
+					test.setMytype(App.type.chat);
+					FutureDirect futureDirect = _dht.peer().sendDirect(destination).object(message).start();
+					
+					futureDirect.awaitListenersUninterruptibly();
+					return true;
+		        }}catch (Exception e) {
+					// TODO: handle exception
 				}
 	    	return false;
 	    }
