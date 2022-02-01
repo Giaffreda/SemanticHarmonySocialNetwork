@@ -10,6 +10,7 @@ import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 
+
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
@@ -311,19 +312,23 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	        return "not found";
 	    }
 	  public void searchFriends2b(String name, String nickName, String profilekey) throws IOException {
-	    	App test;
-		  FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
+	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
 			//nickName="test";
+			App test;
 			try {
 				if (futureGet.isSuccess()) {
 				System.out.println("future search friends succes");
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 				test=new App(profilekey, peerId, nickName, _dht.peer().peerAddress());
+				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+				//peers_on_topic.add(_dht.peer().peerAddress());
+				//_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("nick name per send di test ="+test.getNickname());
 				test.setMytype(App.type.friends);
-					for(PeerAddress peer:peers_on_topic){
+				//Number160 id= new Number160(peerId);
+				for(PeerAddress peer:peers_on_topic){
 					System.out.println("peer ="+peer.peerId()+" peeradress" +_dht.peer().peerAddress().peerId());
 					if(!(peer.equals(_dht.peer().peerAddress()))) {
 					if(!(peer.peerId().equals(_dht.peer().peerAddress().peerId()))) {
@@ -332,7 +337,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					}
 					}
 				}
-				
+				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 			}
 			}catch (Exception e) {
 				// TODO: handle exception
