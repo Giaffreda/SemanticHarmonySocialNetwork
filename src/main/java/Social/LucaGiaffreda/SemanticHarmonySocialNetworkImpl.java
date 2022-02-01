@@ -152,7 +152,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 			 }*/
 			
-			store(_nick_name, "ip");
+			//store(_nick_name, "ip");
 			//get( _nick_name);
 			if(peerId==0) {
 				store("test", "ip");
