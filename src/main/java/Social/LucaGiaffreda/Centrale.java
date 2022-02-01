@@ -59,7 +59,7 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 		switch (option) {
 		case 1:
 			for(int i=0; i<user.getFriendsList().size();i++)
-				 System.out.println("twst"+user.getFriendsList().get(i));
+				 //System.out.println("twst"+user.getFriendsList().get(i));
 				System.exit(0);
 				break;
 		case 2:

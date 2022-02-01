@@ -152,9 +152,10 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 			 }*/
 			
-			
+			store(_nick_name, "ip");
 			if(peerId==0) {
 				store("test", "ip");
+				
 			}else {
 				store("test", "ip");
 				System.out.println("nick name per search ="+_nick_name);
