@@ -311,7 +311,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					Object [] newfriends= {profile,adress};
 					oldList.add(newfriends);
 					_dht.put(Number160.createHash("friendsList"))
-                    .data(new Data(oldList)).start().awaitUninterruptibly();
+                    .data(new Data(oldList)).start().awaitListenersUninterruptibly();
 					/*test=new App("prova", peerId,name,_dht.peer().peerAddress());
 					test.setMytype(App.type.response);
 					FutureDirect futureDirect = _dht.peer().sendDirect(adress).object(test).start();
