@@ -177,7 +177,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 
 	@Override
 	public List<String> getFriends() {
-		FutureGet futureGet = _dht.get(Number160.createHash("friendsList")).start();
+		FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
 		futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
 			 @Override
 			 public void operationComplete(FutureGet future) throws Exception {
@@ -289,7 +289,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	  public boolean addFriends(String profile, PeerAddress adress) throws IOException {
 		  App test;
 		  try {
-				FutureGet futureGet = _dht.get(Number160.createHash("friendsList")).start();
+				FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
 				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
 					 @Override
 					 public void operationComplete(FutureGet future) throws Exception {
@@ -310,7 +310,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					
 					Object [] newfriends= {profile,adress};
 					oldList.add(newfriends);
-					_dht.put(Number160.createHash("friendsList"))
+					_dht.put(Number160.createHash("friendsList"+peerId))
                     .data(new Data(oldList)).start().awaitListenersUninterruptibly();
 					/*test=new App("prova", peerId,name,_dht.peer().peerAddress());
 					test.setMytype(App.type.response);
@@ -436,7 +436,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				test.setMytype(App.type.friends);
 				//Number160 id= new Number160(peerId);
 				// creazione della lista di amici 
-				 FuturePut fp = _dht.put(Number160.createHash("friendsList")).data(new Data(friendList))
+				 FuturePut fp = _dht.put(Number160.createHash("friendsList"+peerId)).data(new Data(friendList))
                          .start().awaitUninterruptibly();
 				for(PeerAddress peer:peers_on_topic){
 					System.out.println("peer ="+peer.peerId()+" peeradress" +_dht.peer().peerAddress().peerId());
