@@ -120,17 +120,17 @@ public boolean message() {
 	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
 	ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
 	while (i<friends.size()) {
-		System.out.print("friends n"+i+" "+friends.get(i));
+		System.out.println("friends n "+i+" "+friends.get(i));
 		i++;
 	}
-	int destination=textIO.newIntInputReader().withDefaultValue(0).read("id destinazione");
+	int destination=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
 	String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
-	return connector.sendMessage2(destination, friends.get(destination), message);
+	return connector.sendMessage2(destination, nickname, message);
 	}
-	int destination=textIO.newIntInputReader().withDefaultValue(0).read("id destinazione");
+	int destination=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
 	String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
-	String nick=textIO.newStringInputReader().withDefaultValue("default").read("nick");
-	return connector.sendMessage2(destination, nick, message);
+	//String nick=textIO.newStringInputReader().withDefaultValue("default").read("nick");
+	return connector.sendMessage2(destination, nickname, message);
 	//return connector.sendMessagebyid(destination, nickname, message);
 }
 public void groupChat() {

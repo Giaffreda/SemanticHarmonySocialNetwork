@@ -190,7 +190,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			  }
 			 }
 			}).awaitListenersUninterruptibly();
-		 System.out.println("failure");
+		 //System.out.println("failure");
 		if(futureGet.isSuccess()) {
 		try {
 			ArrayList<Object[]> fList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();

@@ -58,8 +58,9 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 				.read("Option");
 		switch (option) {
 		case 1:
-			for(int i=0; i<user.getFriendsList().size();i++)
-				 System.out.println("twst"+user.getFriendsList().get(i));
+			ArrayList<String> friendsList=(ArrayList<String>) user.getFriendsList();
+			for(int i=0; i<friendsList.size();i++)
+				 System.out.println("twst"+friendsList.get(i));
 				System.exit(0);
 				break;
 		case 2:
