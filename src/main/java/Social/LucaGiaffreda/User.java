@@ -120,7 +120,7 @@ public boolean message() {
 	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
 	ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
 	while (i<friends.size()) {
-		System.out.print("friends n"+i+" "+friendsList.size());
+		System.out.print("friends n"+i+" "+friends.get(i));
 	}
 	int destination=textIO.newIntInputReader().withDefaultValue(0).read("id destinazione");
 	String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
