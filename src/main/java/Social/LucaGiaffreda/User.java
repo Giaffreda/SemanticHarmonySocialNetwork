@@ -50,7 +50,7 @@ public User(String nickname,int id, String adress) {
 							ArrayList<String>Friend=(ArrayList<String>) connector.getFriends();
  			 					//if(!friendsList.contains(newFriends))
  			 					//{
-								if(!friendsList.contains(a.getNickname())) {
+								if(!Friend.contains(a.getNickname())) {
  			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"con indirizzo"+a.getAdress()+"sender ="+sender+"\n\n");
  			 					terminal.printf("\n"+peerid+" risultati getfreinds"+connector.getFriends5c(nickname, a.getNickname(),sender)+"\n\n");
 						
@@ -60,7 +60,7 @@ public User(String nickname,int id, String adress) {
  			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
  			 					//for (int i=0;i<friendsList.size();i++) {
  			 					ArrayList<String>Friend=(ArrayList<String>) connector.getFriends();
- 			 						if (friendsList.contains(a.getNickname())) {
+ 			 						if (Friend.contains(a.getNickname())) {
  			 							terminal.printf("\n"+peerid+" rimosso amico con i dati che ha i dati"+a+"\n\n");
  			 	 			 			
  		 			 					connector.removeFriends(a.getNickname(), sender);
