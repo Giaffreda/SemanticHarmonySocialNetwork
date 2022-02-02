@@ -132,9 +132,11 @@ public void groupChat() {
 }
 public void changeKey() {
 	List<String> question= connector.getUserProfileQuestions();
+		TextIO textIO = TextIoFactory.getTextIO();
+
 	List <Integer> answer =new ArrayList<>();
 	for (int i=0; i<question.size();i++) {
-		answer.add(Integer.parseInt(question.get(i)));
+		answer.add(textIO.newIntInputReader().withMaxVal(1).withMinVal(0).read(question.get(i)));
 	}
 	String key= connector.createAuserProfileKey(answer);
 	friendsList.clear();
