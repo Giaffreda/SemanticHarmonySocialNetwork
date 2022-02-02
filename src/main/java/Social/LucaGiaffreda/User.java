@@ -139,7 +139,7 @@ public void changeKey() {
 		answer.add(textIO.newIntInputReader().withMaxVal(1).withMinVal(0).read(question.get(i)));
 	}
 	String key= connector.createAuserProfileKey(answer);
-	friendsList.clear();
+	
 	try {
 		connector.searchFriends2b("test", nickname, key);
 	} catch (IOException e) {
