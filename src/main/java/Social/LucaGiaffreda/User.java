@@ -63,7 +63,7 @@ public User(String nickname,int id, String adress) {
  			 						if (Friend.contains(a.getNickname())) {
  			 							terminal.printf("\n"+peerid+" rimosso amico con i dati che ha i dati"+a+"\n\n");
  			 	 			 			
- 		 			 					connector.removeFriends(a.getNickname(), sender);
+ 		 			 					connector.removeFriends(a.getNickname(), sender, Friend.indexOf(a.getNickname()));
  			 						}
  			 					//}
  			 				

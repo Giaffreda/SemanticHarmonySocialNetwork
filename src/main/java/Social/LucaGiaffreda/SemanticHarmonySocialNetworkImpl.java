@@ -327,7 +327,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 			return false;
 			}
-	  public boolean removeFriends(String profile, PeerAddress adress) throws IOException {
+	  public boolean removeFriends(String profile, PeerAddress adress, int index) throws IOException {
 		  try {
 				FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
 				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
@@ -350,10 +350,10 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					
 					Object [] newfriends= {profile,adress};
 					
-					int i=0;
+					/*int i=0;
 					while(!oldList.get(i)[0].equals(newfriends[0]))
-						i++;
-					oldList.remove(i);
+						i++*/;
+					oldList.remove(index);
 					_dht.put(Number160.createHash("friendsList"+peerId))
                     .data(new Data(oldList)).start().awaitListenersUninterruptibly();
 					/*test=new App("prova", peerId,name,_dht.peer().peerAddress());
@@ -590,7 +590,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	    		answer.add(Integer.parseInt(question.get(i)));
 	    	}
 	    	String key= createAuserProfileKey(answer);
-	    	friendList.clear();
+	    	//friendList.clear();
 	    	try {
 				searchFriends2b("test", nickName, key);
 			} catch (IOException e) {
