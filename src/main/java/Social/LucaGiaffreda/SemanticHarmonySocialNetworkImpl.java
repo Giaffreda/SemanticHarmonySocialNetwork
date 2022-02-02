@@ -190,6 +190,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			  }
 			 }
 			}).awaitListenersUninterruptibly();
+		 System.out.println("failure");
 		if(futureGet.isSuccess()) {
 		try {
 			ArrayList<Object[]> fList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
@@ -239,7 +240,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
                          .data(new Data(name)).start().awaitUninterruptibly();*/
 				if (futureGet.isSuccess()) {
 					
-					test=new App("prova", peerId,name,_dht.peer().peerAddress());
+					test=new App("prova", peerId,name);//new App("prova", peerId,name,_dht.peer().peerAddress());
 					test.setMytype(App.type.response);
 					FutureDirect futureDirect = _dht.peer().sendDirect(adress).object(test).start();
 					
@@ -273,7 +274,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				addFriends(profile, adress);
 				if (futureGet.isSuccess()) {
 					
-					test=new App("prova", peerId,name,_dht.peer().peerAddress());
+					test=new App("prova", peerId,name);
 					test.setMytype(App.type.response);
 					FutureDirect futureDirect = _dht.peer().sendDirect(adress).object(test).start();
 					
@@ -472,7 +473,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				System.out.println("future search friends succes");
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-				test=new App(profilekey, peerId, nickName, _dht.peer().peerAddress());
+				test=new App(profilekey, peerId, nickName);
 				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 				//peers_on_topic.add(_dht.peer().peerAddress());
 				//_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
@@ -505,7 +506,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				futureGet.awaitUninterruptibly();
 				if (futureGet.isSuccess() && futureGet.isEmpty()) 
 					System.out.println("future search friends succes");
-				test=new App("grup chat", peerId, chatName, _dht.peer().peerAddress());
+				test=new App("grup chat", peerId, chatName);
 				_dht.put(Number160.createHash(chatName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 				System.out.println("nick name per send di test ="+test.getNickname()+ "sixe of peer friend list"+ peerfreinds.size());
 				test.setMytype(App.type.multichat);
@@ -565,16 +566,18 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				}
 	    	return false;
 	    }
-	  public boolean sendMessage2(PeerAddress destination, String source,Object message) {
+	  public boolean sendMessage2(int destination, String source,Object message) {
 
-	    	FutureGet futureGet = _dht.get(Number160.createHash(source)).start();
+	    	FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
 	        futureGet.awaitUninterruptibly();
 	        App test;
 	        try {
 		        if (futureGet.isSuccess()) {
-		        	test=new App("prova", peerId,source,_dht.peer().peerAddress());
+		        	ArrayList <Object[]> friends= (ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+		        	
+		        	test=new App("prova", peerId,source);
 					test.setMytype(App.type.chat);
-					FutureDirect futureDirect = _dht.peer().sendDirect(destination).object(message).start();
+					FutureDirect futureDirect = _dht.peer().sendDirect((PeerAddress) friends.get(destination)[1]).object(message).start();
 					
 					futureDirect.awaitListenersUninterruptibly();
 					return true;
@@ -597,5 +600,11 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+	  public boolean leaveNetwork() {
+			
+			
+			_dht.peer().announceShutdown().start().awaitUninterruptibly();
+			return true;
 		}
 }

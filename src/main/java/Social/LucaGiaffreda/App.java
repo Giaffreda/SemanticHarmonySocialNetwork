@@ -13,15 +13,15 @@ public class App implements Serializable
 {
     private String text;
     private int peerId;
-    private PeerAddress adress;
+   // private PeerAddress adress;
     private String Nickname;
     public enum type{chat,friends,response,multichat}
     private type mytype;
-    public App(String text,int peerId,String Nickname, PeerAddress adress) {
+    public App(String text,int peerId,String Nickname) {
     	 this.text=text;
         this.peerId=peerId;
         this.Nickname=Nickname;
-        this.adress= adress;
+        //this.adress= adress;
         
     }
 	public String getText() {
@@ -51,10 +51,10 @@ public class App implements Serializable
 	public String toString() {
 		return " text= "+text+" peerId= "+peerId+" nickname= "+Nickname+" type ="+mytype;
 	}
-	public PeerAddress getAdress() {
+	/*public PeerAddress getAdress() {
 		return adress;
 	}
 	public void setAdress(PeerAddress adress) {
 		this.adress = adress;
-	}
+	}*/
 }

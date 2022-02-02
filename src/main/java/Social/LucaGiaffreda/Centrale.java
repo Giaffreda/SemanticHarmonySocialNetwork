@@ -51,7 +51,7 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 		System.out.println("1 = exit");
 		System.out.println("2 = message");
 		System.out.println("3 = group chat");
-		System.out.println("4 = change nickname");
+		System.out.println("4 = change key");
 		int option = textIO.newIntInputReader()
 				.withMaxVal(4)
 				.withMinVal(1)

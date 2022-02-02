@@ -46,18 +46,18 @@ public User(String nickname,int id, String adress) {
  						try {
  						if(a.getMytype()==App.type.friends) {
  						if(connector.hammingDistance(a.getText(), profile_key)<2) {
-							Object newFriends[]= {a.getNickname(),a.getAdress()};
+							Object newFriends[]= {a.getNickname(),sender};
 							ArrayList<String>Friend=(ArrayList<String>) connector.getFriends();
  			 					//if(!friendsList.contains(newFriends))
  			 					//{
 								if(!Friend.contains(a.getNickname())) {
- 			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"con indirizzo"+a.getAdress()+"sender ="+sender+"\n\n");
+ 			 					//terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"con indirizzo"+a.getAdress()+"sender ="+sender+"\n\n");
  			 					terminal.printf("\n"+peerid+" risultati getfreinds"+connector.getFriends5c(nickname, a.getNickname(),sender)+"\n\n");
 						
  			 					//friendsList.add(newFriends);
  			 					}
  			 				}else {
- 			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
+ 			 					Object newFriends[]= {a.getNickname(),sender};
  			 					//for (int i=0;i<friendsList.size();i++) {
  			 					ArrayList<String>Friend=(ArrayList<String>) connector.getFriends();
  			 						if (Friend.contains(a.getNickname())) {
@@ -78,9 +78,9 @@ public User(String nickname,int id, String adress) {
 								
 								} else {
 								terminal.printf("\n"+peerid+" aggiunge un nuovo amico che ha i dati"+a+"\n\n");
-								Object newFriends[]= {a.getNickname(),a.getAdress()};
+							//	Object newFriends[]= {a.getNickname(),sender};
 								connector.addFriends(a.getNickname(), sender);
-								friendsList.add(newFriends);
+								//friendsList.add(newFriends);
 								}
  			}
  			 catch (IOException e) {
@@ -111,15 +111,26 @@ public boolean connect() {
 public boolean message() {
 	TextIO textIO = TextIoFactory.getTextIO();
     TextTerminal terminal = textIO.getTextTerminal();
-	String destination=textIO.newStringInputReader().withDefaultValue("default").read("destination");
+	//String destination=textIO.newStringInputReader().withDefaultValue("default").read("destination");
     //int destination=textIO.newIntInputReader().withDefaultValue(0).read("id destinazione");
 	int i=0;
 	/*while(!destination.equals(friendList.get(i)[0])) {
 		i++;
 	}*/
+	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
+	ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
+	while (i<friends.size()) {
+		System.out.print("friends n"+i+" "+friendsList.size());
+	}
+	int destination=textIO.newIntInputReader().withDefaultValue(0).read("id destinazione");
 	String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
-	//con.sendMessage2((PeerAddress) friendList.get(i)[1], nick, message);
-	return connector.sendMessagebyid(destination, nickname, message);
+	return connector.sendMessage2(destination, friends.get(destination), message);
+	}
+	int destination=textIO.newIntInputReader().withDefaultValue(0).read("id destinazione");
+	String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
+	String nick=textIO.newStringInputReader().withDefaultValue("default").read("nick");
+	return connector.sendMessage2(destination, nick, message);
+	//return connector.sendMessagebyid(destination, nickname, message);
 }
 public void groupChat() {
 	ArrayList<PeerAddress> peerfreinds=new ArrayList<PeerAddress>();
