@@ -121,6 +121,7 @@ public boolean message() {
 	ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
 	while (i<friends.size()) {
 		System.out.print("friends n"+i+" "+friends.get(i));
+		i++;
 	}
 	int destination=textIO.newIntInputReader().withDefaultValue(0).read("id destinazione");
 	String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
