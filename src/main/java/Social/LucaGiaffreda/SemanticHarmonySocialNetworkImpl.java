@@ -156,16 +156,17 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			
 			//store(_nick_name, "ip");
 			//get( _nick_name);
-			/*if(peerId==0) {
+			if(peerId==0) {
 				store("test", "ip");
 				searchFriends2b("test", _nick_name, _profile_key);
 				
-			}else {*/
-				store("test", "ip");
+			}else {
+				//store("test", "ip");
+				get( "test");
 				System.out.println("nick name per search ="+_nick_name);
 				searchFriends2b("test", _nick_name, _profile_key);
-			
-			get( "test");
+			}
+			//get( "test");
 			
 		} catch (Exception e) {
 			
