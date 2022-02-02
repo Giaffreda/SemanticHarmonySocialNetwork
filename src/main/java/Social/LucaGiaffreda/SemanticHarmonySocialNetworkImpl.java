@@ -327,6 +327,45 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 			return false;
 			}
+	  public boolean removeFriends(String profile, PeerAddress adress) throws IOException {
+		  try {
+				FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
+				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+					 @Override
+					 public void operationComplete(FutureGet future) throws Exception {
+					  if(future.isSuccess()) { // this flag indicates if the future was successful
+					   System.out.println("success");
+					   
+					  } else {
+					   System.out.println("failure");
+					  }
+					 }
+					}).awaitListenersUninterruptibly();
+				
+				if (futureGet.isSuccess()) {
+					ArrayList<Object[]> oldList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+					//ArrayList<Object[]> oldList=_dht.get(Number160.createHash("friendsList")).;
+					/* FuturePut future = _dht.put(Number160.createHash(profile))
+	                         .data(new Data(name)).start().awaitUninterruptibly();*/
+					
+					Object [] newfriends= {profile,adress};
+					oldList.remove(newfriends);
+					_dht.put(Number160.createHash("friendsList"+peerId))
+                    .data(new Data(oldList)).start().awaitListenersUninterruptibly();
+					/*test=new App("prova", peerId,name,_dht.peer().peerAddress());
+					test.setMytype(App.type.response);
+					FutureDirect futureDirect = _dht.peer().sendDirect(adress).object(test).start();
+					
+					futureDirect.awaitListenersUninterruptibly();
+				*/
+					return true;
+					
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+			}
 	  public boolean getmultichat(String name, String profile) throws IOException {
 		  try {
 				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
