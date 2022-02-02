@@ -349,7 +349,8 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	                         .data(new Data(name)).start().awaitUninterruptibly();*/
 					
 					Object [] newfriends= {profile,adress};
-					oldList.remove(newfriends);
+					oldList.remove(newfriends[0]);
+					oldList.remove(newfriends[1]);
 					_dht.put(Number160.createHash("friendsList"+peerId))
                     .data(new Data(oldList)).start().awaitListenersUninterruptibly();
 					/*test=new App("prova", peerId,name,_dht.peer().peerAddress());
