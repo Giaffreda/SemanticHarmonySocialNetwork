@@ -748,7 +748,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	    	}
 	    	String key= createAuserProfileKey(answer);
 	    	//friendList.clear();
-	    	_dht.remove(Number160.createHash("friendsList"+peerId));
+	    	//_dht.remove(Number160.createHash("friendsList"+peerId));
 	    	try {
 				searchFriends2b("test", nickName, key);
 			} catch (IOException e) {
