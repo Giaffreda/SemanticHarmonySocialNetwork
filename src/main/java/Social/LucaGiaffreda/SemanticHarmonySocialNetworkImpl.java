@@ -723,12 +723,13 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	        try {
 		        if (futureGet.isSuccess()) {
 		        	//ArrayList <Object[]> friends= (ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
-		        	
+		        	System.out.println("future succes refriends");
 		        	test=new App("prova", peerId,source);
 					test.setMytype(App.type.response);
 					FutureDirect futureDirect = _dht.peer().sendDirect(destination).object(test).start();
 					
 					futureDirect.awaitListenersUninterruptibly();
+					System.out.println("message refriends send");
 					return true;
 		        }}catch (Exception e) {
 					// TODO: handle exception
