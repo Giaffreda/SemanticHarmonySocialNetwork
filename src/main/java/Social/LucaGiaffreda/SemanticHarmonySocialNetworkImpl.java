@@ -716,9 +716,9 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	    	return false;
 	    }
 	  public boolean reFriends(PeerAddress destination, String source) {
-
+		  System.out.println("tryyyyyyyyyyy1");
 	    	FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
-	        futureGet.awaitUninterruptibly();
+	        futureGet.awaitListenersUninterruptibly();
 	        System.out.println("tryyyyyyyyyyy");
 	        App test;
 	        try {
@@ -737,6 +737,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		        }}catch (Exception e) {
 					e.printStackTrace();
 				}
+	        System.out.println("faaaaaaaaaaaaaalse");
 	    	return false;
 	    }
 	  public void changeKey(String nickName) {
