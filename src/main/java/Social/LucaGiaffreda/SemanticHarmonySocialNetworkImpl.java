@@ -391,6 +391,10 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						System.out.println("is empty");
 						return false;
 					}
+					/*HashSet<PeerAddress> peers_on_topic;
+				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				peers_on_topic.add(_dht.peer().peerAddress());
+				_dht.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();*/
 					HashSet<PeerAddress> peers_on_topic;
 					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 					peers_on_topic.add(_dht.peer().peerAddress());
@@ -404,7 +408,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						futureDirect.awaitListenersUninterruptibly();
 						
 					}
-					
+					addFriends(profile, null);
 					return true;
 					
 				}
@@ -506,8 +510,11 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				futureGet.awaitUninterruptibly();
 				if (futureGet.isSuccess() && futureGet.isEmpty()) 
 					System.out.println("future search friends succes");
+				HashSet<PeerAddress> peers_on_topic=new HashSet<PeerAddress>();
+				peers_on_topic.add(_dht.peer().peerAddress());
 				test=new App("grup chat", peerId, chatName);
-				_dht.put(Number160.createHash(chatName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(chatName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				addFriends(chatName, null);
 				System.out.println("nick name per send di test ="+test.getNickname()+ "sixe of peer friend list"+ peerfreinds.size());
 				test.setMytype(App.type.multichat);
 				Number160 id= new Number160(peerId);
@@ -661,6 +668,62 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		        	test=new App("prova", peerId,source);
 					test.setMytype(App.type.chat);
 					FutureDirect futureDirect = _dht.peer().sendDirect((PeerAddress) friends.get(destination)[1]).object(message).start();
+					
+					futureDirect.awaitListenersUninterruptibly();
+					return true;
+		        }}catch (Exception e) {
+					// TODO: handle exception
+				}
+	    	return false;
+	    }
+	  public boolean sendMessage3(int destination, String source,Object message) {
+
+	    	FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
+	        futureGet.awaitUninterruptibly();
+	        App test;
+	        try {
+		        if (futureGet.isSuccess()) {
+		        	ArrayList <Object[]> friends= (ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+		        	
+		        	test=new App("prova", peerId,source);
+					test.setMytype(App.type.chat);
+					if(!friends.get(destination)[1].equals(null)) {
+					FutureDirect futureDirect = _dht.peer().sendDirect((PeerAddress) friends.get(destination)[1]).object(message).start();
+			
+					futureDirect.awaitListenersUninterruptibly();
+					}else {
+						 if (futureGet.isSuccess()) {
+						FutureGet futureGet2 = _dht.get(Number160.createHash((String)friends.get(destination)[0])).start();
+				        futureGet2.awaitUninterruptibly();
+				        HashSet<PeerAddress> peers_on_topic;
+						peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+			        		for(PeerAddress peer:peers_on_topic)
+						{
+							FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(message).start();
+							futureDirect.awaitUninterruptibly();
+						}
+						}else {
+							return false;
+						}
+					}
+					return true;
+		        }}catch (Exception e) {
+					// TODO: handle exception
+				}
+	    	return false;
+	    }
+	  public boolean reFriends(PeerAddress destination, String source) {
+
+	    	FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
+	        futureGet.awaitUninterruptibly();
+	        App test;
+	        try {
+		        if (futureGet.isSuccess()) {
+		        	//ArrayList <Object[]> friends= (ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+		        	
+		        	test=new App("prova", peerId,source);
+					test.setMytype(App.type.response);
+					FutureDirect futureDirect = _dht.peer().sendDirect(destination).object(test).start();
 					
 					futureDirect.awaitListenersUninterruptibly();
 					return true;
