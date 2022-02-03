@@ -68,6 +68,7 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 			break;
 		case 3:
 			user.groupChat();
+			break;
 		case 4:
 			user.changeKey( );
 			break;
