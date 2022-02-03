@@ -135,7 +135,7 @@ public boolean message() {
 }
 public void groupChat() {
 	ArrayList<Integer> peerfreinds=new ArrayList<Integer>();
-	System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAA friends"+friendsList.size());
+	//System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAA friends"+friendsList.size());
 	/*for (int i=0;i<friendsList.size();i++) {
 		System.out.println("peer ="+friendsList.get(i)[0]+" peeradress" +friendsList.get(i)[1]);
 		peerfreinds.add((PeerAddress) friendsList.get(i)[1]);
