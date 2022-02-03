@@ -692,9 +692,11 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			
 					futureDirect.awaitListenersUninterruptibly();
 					}else {
-						 if (futureGet.isSuccess()) {
+						System.out.println("group messag pt 1");
 						FutureGet futureGet2 = _dht.get(Number160.createHash((String)friends.get(destination)[0])).start();
 				        futureGet2.awaitUninterruptibly();
+				        if (futureGet2.isSuccess()) {
+				        	System.out.println("group messag pt 1");
 				        HashSet<PeerAddress> peers_on_topic;
 						peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 			        		for(PeerAddress peer:peers_on_topic)
@@ -703,6 +705,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 							futureDirect.awaitUninterruptibly();
 						}
 						}else {
+							System.out.println("group message gone wrong");
 							return false;
 						}
 					}
