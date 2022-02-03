@@ -525,13 +525,46 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			return false;
 		}
 	  public void groupChat() {
-			ArrayList<PeerAddress> peerfreinds=new ArrayList<PeerAddress>();
+			/*ArrayList<PeerAddress> peerfreinds=new ArrayList<PeerAddress>();
 			System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAA friends"+friendList.size());
 			for (int i=0;i<friendList.size();i++) {
 				System.out.println("peer ="+friendList.get(i)[0]+" peeradress" +friendList.get(i)[1]);
 				peerfreinds.add((PeerAddress) friendList.get(i)[1]);
 			}
-			createGroupChat("gruppo", peerfreinds);
+			createGroupChat("gruppo", peerfreinds);*/
+			
+			 	FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
+			 	futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+			 @Override
+			 public void operationComplete(FutureGet future) throws Exception {
+			  if(future.isSuccess()) { // this flag indicates if the future was successful
+			   System.out.println("success");
+			   
+			  } else {
+			   System.out.println("failure");
+			  }
+			 }
+			}).awaitListenersUninterruptibly();
+		 //System.out.println("failure");
+		if(futureGet.isSuccess()) {
+		try {
+			ArrayList<Object[]> fList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+			ArrayList<PeerAddress> friendsadress =new ArrayList<PeerAddress>();
+			for(Object[] friends:fList)
+			{
+				friendsadress.add( (PeerAddress) friends[1]);
+			}
+			createGroupChat("gruppo", friendsadress);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}else {
+			 System.out.println("non esiste");
+		}
 		}
 	  /*public void message(String nick) {
 			TextIO textIO = TextIoFactory.getTextIO();
