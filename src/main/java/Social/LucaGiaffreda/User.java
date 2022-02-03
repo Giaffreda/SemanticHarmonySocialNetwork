@@ -56,7 +56,9 @@ public User(String nickname,int id, String adress) {
 						
  			 					//friendsList.add(newFriends);
  			 					}else {
+ 			 						terminal.printf("\n gia' amici"+"\n\n");
  			 						connector.reFriends(sender, nickname);
+ 			 						
  			 					}
  			 				}else {
  			 					Object newFriends[]= {a.getNickname(),sender};
