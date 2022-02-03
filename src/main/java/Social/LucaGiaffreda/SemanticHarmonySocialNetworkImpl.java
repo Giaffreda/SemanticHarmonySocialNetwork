@@ -391,10 +391,6 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						System.out.println("is empty");
 						return false;
 					}
-					/*HashSet<PeerAddress> peers_on_topic;
-				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-				peers_on_topic.add(_dht.peer().peerAddress());
-				_dht.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();*/
 					HashSet<PeerAddress> peers_on_topic;
 					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 					peers_on_topic.add(_dht.peer().peerAddress());
@@ -512,7 +508,6 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					System.out.println("future search friends succes");
 				test=new App("grup chat", peerId, chatName);
 				_dht.put(Number160.createHash(chatName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
-				
 				System.out.println("nick name per send di test ="+test.getNickname()+ "sixe of peer friend list"+ peerfreinds.size());
 				test.setMytype(App.type.multichat);
 				Number160 id= new Number160(peerId);
