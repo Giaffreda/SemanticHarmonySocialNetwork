@@ -125,12 +125,12 @@ public boolean message() {
 	}
 	int destination=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
 	String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
-	return connector.sendMessage3(destination, nickname, message);
+	return connector.sendMessage2(destination, nickname, message);
 	}
 	int destination=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
 	String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
 	//String nick=textIO.newStringInputReader().withDefaultValue("default").read("nick");
-	return connector.sendMessage3(destination, nickname, message);
+	return connector.sendMessage2(destination, nickname, message);
 	//return connector.sendMessagebyid(destination, nickname, message);
 }
 public void groupChat() {
