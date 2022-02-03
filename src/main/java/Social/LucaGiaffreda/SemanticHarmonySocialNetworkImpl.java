@@ -687,7 +687,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		        	
 		        	test=new App("prova", peerId,source);
 					test.setMytype(App.type.chat);
-					if(!friends.get(destination)[1].equals(null)) {
+					if(friends.get(destination)[1]!=null) {
 					FutureDirect futureDirect = _dht.peer().sendDirect((PeerAddress) friends.get(destination)[1]).object(message).start();
 			
 					futureDirect.awaitListenersUninterruptibly();
