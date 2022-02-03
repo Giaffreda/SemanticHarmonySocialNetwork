@@ -719,6 +719,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 
 	    	FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
 	        futureGet.awaitUninterruptibly();
+	        System.out.println("tryyyyyyyyyyy");
 	        App test;
 	        try {
 		        if (futureGet.isSuccess()) {
