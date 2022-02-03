@@ -55,6 +55,8 @@ public User(String nickname,int id, String adress) {
  			 					terminal.printf("\n"+peerid+" risultati getfreinds"+connector.getFriends5c(nickname, a.getNickname(),sender)+"\n\n");
 						
  			 					//friendsList.add(newFriends);
+ 			 					}else {
+ 			 						connector.reFriends(sender, nickname);
  			 					}
  			 				}else {
  			 					Object newFriends[]= {a.getNickname(),sender};
