@@ -696,9 +696,9 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						FutureGet futureGet2 = _dht.get(Number160.createHash((String)friends.get(destination)[0])).start();
 				        futureGet2.awaitUninterruptibly();
 				        if (futureGet2.isSuccess()) {
-				        	System.out.println("group messag pt 1");
+				        	System.out.println("group messag pt 2");
 				        HashSet<PeerAddress> peers_on_topic;
-						peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+						peers_on_topic = (HashSet<PeerAddress>) futureGet2.dataMap().values().iterator().next().object();
 			        		for(PeerAddress peer:peers_on_topic)
 						{
 							FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(message).start();
