@@ -733,7 +733,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					System.out.println("message refriends send");
 					return true;
 		        }else{
-		        	System.out.println("future not succes refriends");
+		        	System.out.println("future not succes refriends "+futureGet.failedReason());
 		        }}catch (Exception e) {
 					e.printStackTrace();
 				}
