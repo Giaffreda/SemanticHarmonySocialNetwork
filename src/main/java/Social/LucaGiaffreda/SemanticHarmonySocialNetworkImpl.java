@@ -391,6 +391,10 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						System.out.println("is empty");
 						return false;
 					}
+					/*HashSet<PeerAddress> peers_on_topic;
+				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				peers_on_topic.add(_dht.peer().peerAddress());
+				_dht.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();*/
 					HashSet<PeerAddress> peers_on_topic;
 					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 					peers_on_topic.add(_dht.peer().peerAddress());
@@ -524,6 +528,34 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 			return false;
 		}
+	  /*
+	   * public boolean createGroupChat(String chatName, ArrayList<Integer> peerfreinds){
+		  App test;
+			try {
+				FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
+				futureGet.awaitUninterruptibly();
+				if (futureGet.isSuccess() && futureGet.isEmpty()) 
+					System.out.println("future search friends succes");
+				ArrayList<Object[]> friendsList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+				test=new App("grup chat", peerId, chatName);
+				_dht.put(Number160.createHash(chatName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+				System.out.println("nick name per send di test ="+test.getNickname()+ "sixe of peer friend list"+ peerfreinds.size());
+				test.setMytype(App.type.multichat);
+				Number160 id= new Number160(peerId);
+				for (int i=0;i<peerfreinds.size();i++) {
+					FutureDirect futureDirect = _dht.peer().sendDirect((PeerAddress) friendsList.get(peerfreinds.get(i))[1]).object(test).start();
+					futureDirect.awaitUninterruptibly();
+					
+					
+				
+				}
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+		}
+	   * */
 	  public void groupChat() {
 			/*ArrayList<PeerAddress> peerfreinds=new ArrayList<PeerAddress>();
 			System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAA friends"+friendList.size());
@@ -550,10 +582,32 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		try {
 			ArrayList<Object[]> fList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
 			ArrayList<PeerAddress> friendsadress =new ArrayList<PeerAddress>();
-			for(Object[] friends:fList)
+			TextIO textIO = TextIoFactory.getTextIO();
+
+			/*
+			 * if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
+		ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
+		while (i<friends.size()) {
+			System.out.println("friends n "+i+" "+friends.get(i));
+			i++;
+		}
+		while(textIO.newBooleanInputReader().withDefaultValue(false).read("\n vuoi aggiungere amici al gruppo?\n")) {
+			peerfreinds.add(textIO.newIntInputReader().withDefaultValue(0).read("/n n friends"));
+			}
+		}
+			 * */
+			if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
+			/*for(Object[] friends:fList)
 			{
 				friendsadress.add( (PeerAddress) friends[1]);
-			}
+			}*/
+				for (int i=0;i<fList.size();i++) {
+					System.out.println("friends n "+i+" "+fList.get(i)[0]);
+				}
+				}
+			while(textIO.newBooleanInputReader().withDefaultValue(false).read("\n vuoi aggiungere amici al gruppo?\n")) {
+				friendsadress.add((PeerAddress) fList.get(textIO.newIntInputReader().withDefaultValue(0).read("/n n friends"))[1]);
+				}
 			createGroupChat("gruppo", friendsadress);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

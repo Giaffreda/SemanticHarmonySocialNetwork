@@ -134,13 +134,25 @@ public boolean message() {
 	//return connector.sendMessagebyid(destination, nickname, message);
 }
 public void groupChat() {
-	ArrayList<PeerAddress> peerfreinds=new ArrayList<PeerAddress>();
+	ArrayList<Integer> peerfreinds=new ArrayList<Integer>();
 	System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAA friends"+friendsList.size());
-	for (int i=0;i<friendsList.size();i++) {
+	/*for (int i=0;i<friendsList.size();i++) {
 		System.out.println("peer ="+friendsList.get(i)[0]+" peeradress" +friendsList.get(i)[1]);
 		peerfreinds.add((PeerAddress) friendsList.get(i)[1]);
-	}
-	connector.createGroupChat("gruppo", peerfreinds);
+	}*/	
+	TextIO textIO = TextIoFactory.getTextIO();
+	/*int i=0;
+	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
+		ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
+		while (i<friends.size()) {
+			System.out.println("friends n "+i+" "+friends.get(i));
+			i++;
+		}
+		while(textIO.newBooleanInputReader().withDefaultValue(false).read("\n vuoi aggiungere amici al gruppo?\n")) {
+			peerfreinds.add(textIO.newIntInputReader().withDefaultValue(0).read("/n n friends"));
+			}
+		}*/
+	connector.groupChat();
 }
 public void changeKey() {
 	List<String> question= connector.getUserProfileQuestions();
