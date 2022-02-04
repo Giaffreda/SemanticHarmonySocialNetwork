@@ -6,10 +6,16 @@ import java.util.List;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
+import org.kohsuke.args4j.Option;
 
 
 
 public class Centrale {
+	@Option(name="-a", aliases="--adress", required=true)
+	private static String adress;
+
+	@Option(name="-id", aliases="--identifierpeer", required=true)
+	private static int id;
 public static void main (String[] args)throws NumberFormatException, Exception {
 	 System.out.println("twst");
 	/* class MessageListenerImpl implements MessageListener{
@@ -43,7 +49,7 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 	}*/
 	//String key= ex.createAuserProfileKey(answer);
 	String nick=textIO.newStringInputReader().withDefaultValue("default").read("inserisci nick");
-	 User user=new User(nick, Integer.parseInt(args[0]),args[1]);
+	 User user=new User(nick, id,adress);
 	//ex.join(key,nick );
 	//System.out.println(ex.peerId);
 	 user.connect();
