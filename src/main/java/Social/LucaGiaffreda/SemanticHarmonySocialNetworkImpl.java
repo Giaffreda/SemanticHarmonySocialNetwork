@@ -310,7 +310,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					/* FuturePut future = _dht.put(Number160.createHash(profile))
 	                         .data(new Data(name)).start().awaitUninterruptibly();*/
 					for(int i=0;i<oldList.size();i++) {
-						if(oldList.get(i).equals(profile))
+						if(oldList.get(i)[0].equals(profile))
 							return true;
 					}
 					
