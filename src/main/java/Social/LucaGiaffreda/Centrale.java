@@ -12,16 +12,16 @@ import org.kohsuke.args4j.Option;
 
 
 public class Centrale {
-	/*@Option(name="-a", aliases="--adress", required=true)
+	@Option(name="-a", aliases="--adress", required=true)
 	private static String adress;
 
 	@Option(name="-id", aliases="--identifierpeer", required=true)
-	private static int id;*/
-	@Option(name="-m", aliases="--masterip", usage="the master peer ip address", required=true)
+	private static int id;
+	/*@Option(name="-m", aliases="--masterip", usage="the master peer ip address", required=true)
 	private static String master;
 
 	@Option(name="-id", aliases="--identifierpeer", usage="the unique identifier for this peer", required=true)
-	private static int id;
+	private static int id;*/
 public static void main (String[] args)throws NumberFormatException, Exception {
 	 System.out.println("twst");
 	/* class MessageListenerImpl implements MessageListener{
@@ -56,10 +56,10 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 		answer.add(Integer.parseInt(question.get(i)));
 	}*/
 	//String key= ex.createAuserProfileKey(answer);
-    System.out.println(id+" "+master);
+    System.out.println(id+" "+adress);
     String nick=textIO.newStringInputReader().withDefaultValue("default").read("inserisci nick");
 	
-	 User user=new User(nick, id,master);
+	 User user=new User(nick, id,adress);
 	//ex.join(key,nick );
 	//System.out.println(ex.peerId);
 	 user.connect();
