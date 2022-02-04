@@ -48,7 +48,9 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 		answer.add(Integer.parseInt(question.get(i)));
 	}*/
 	//String key= ex.createAuserProfileKey(answer);
-	String nick=textIO.newStringInputReader().withDefaultValue("default").read("inserisci nick");
+    System.out.println(id+" "+adress);
+    String nick=textIO.newStringInputReader().withDefaultValue("default").read("inserisci nick");
+	
 	 User user=new User(nick, id,adress);
 	//ex.join(key,nick );
 	//System.out.println(ex.peerId);
