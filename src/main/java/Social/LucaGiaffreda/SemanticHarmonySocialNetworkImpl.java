@@ -309,6 +309,10 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					//ArrayList<Object[]> oldList=_dht.get(Number160.createHash("friendsList")).;
 					/* FuturePut future = _dht.put(Number160.createHash(profile))
 	                         .data(new Data(name)).start().awaitUninterruptibly();*/
+					for(int i=0;i<oldList.size();i++) {
+						if(oldList.get(i).equals(profile))
+							return true;
+					}
 					
 					Object [] newfriends= {profile,adress};
 					oldList.add(newfriends);
