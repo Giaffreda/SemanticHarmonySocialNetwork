@@ -6,10 +6,6 @@ import java.util.List;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
-import org.kohsuke.args4j.Option;
-import org.beryx.textio.TextIO;
-import org.beryx.textio.TextIoFactory;
-import org.beryx.textio.TextTerminal;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
@@ -47,7 +43,9 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 	}*/
 	 
 	 //aggiunte
-	
+	 Centrale example=new Centrale();
+	 final CmdLineParser parser = new CmdLineParser(example);  
+	 parser.parseArgument(args);
 	 TextIO textIO = TextIoFactory.getTextIO();
     TextTerminal terminal = textIO.getTextTerminal();
 	// SemanticHarmonySocialNetworkImpl ex= new SemanticHarmonySocialNetworkImpl(Integer.parseInt(args[0]), args[1]);
