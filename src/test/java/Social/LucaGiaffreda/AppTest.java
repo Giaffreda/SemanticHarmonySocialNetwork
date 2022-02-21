@@ -150,7 +150,7 @@ public class AppTest
 	 	}
 	 	@Test
 	    @Order (4)
-	    @Disabled
+	    //@Disabled
 	    void testCaseChangekey() throws InterruptedException {
 	 		/*InputStream sysInBackup = System.in; 
 	 		 String input = "False\n True\n 0\n True\n 1\n False\n";
@@ -167,11 +167,16 @@ public class AppTest
 	 		//assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message2"));
 	 		//assertFalse(peer2.getConnector().sendMessage3(3, peer2.getNickname(), "test message2"));
 	 		System.setIn(sysInBackup);*/
+	 		System.out.println("profilekey 1: "+peer1.getProfile_key());
 	 		peer0.setProfile_key("1111");
 	 		assertTrue(peer0.getConnector().changeKey(peer0.getNickname(), peer0.getProfile_key()));
 	 		ArrayList<String> expectedfriends= new ArrayList<String>();
 	 		expectedfriends.add(peer3.getNickname());
+	 		//expectedfriends.add("gruppo");
 	 		TimeUnit.SECONDS.sleep(1);
+	 		ArrayList<String> c= (ArrayList<String>) peer0.getFriendsList();
+	 		for (String d:c)
+	 			System.out.print("aaaa"+d);
 	 		assertArrayEquals(expectedfriends.toArray(), peer0.getFriendsList().toArray());
 	 		expectedfriends.remove(peer3.getNickname());
 	 		expectedfriends.add(peer2.getNickname());
@@ -185,7 +190,7 @@ public class AppTest
 
 	@Test
     @Order (5)
-    @Disabled
+    //@Disabled
     void testCaseChangeExit() throws InterruptedException {
  		/*InputStream sysInBackup = System.in; 
  		 String input = "False\n True\n 0\n True\n 1\n False\n";

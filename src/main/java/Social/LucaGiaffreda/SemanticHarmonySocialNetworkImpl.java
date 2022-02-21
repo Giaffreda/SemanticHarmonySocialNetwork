@@ -344,9 +344,10 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				//futureGet.awaitUninterruptibly();
 				/* FuturePut future = _dht.put(Number160.createHash(profile))
                          .data(new Data(name)).start().awaitUninterruptibly();*/
-				System.out.println("fget enter from "+name+" to "+profile+" and result="+addFriends(profile, adress));
+				boolean c;
+				System.out.println("fget enter from "+name+" to "+profile+" and result="+(c=addFriends(profile, adress)));
 				
-				if (futureGet.isSuccess()) {
+				if (futureGet.isSuccess()&&c) {
 					//if(futureGet.isEmpty()) return false;
 					test=new App("prova", peerId,name);
 					test.setMytype(App.type.response);
@@ -387,8 +388,14 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					/* FuturePut future = _dht.put(Number160.createHash(profile))
 	                         .data(new Data(name)).start().awaitUninterruptibly();*/
 					for(int i=0;i<oldList.size();i++) {
-						if(oldList.get(i)[0].equals(profile))
-							return true;
+						if(oldList.get(i)[0].equals(profile)) {
+							oldList.remove(i);
+							_dht.put(Number160.createHash("friendsList"+peerId))
+		                    .data(new Data(oldList)).start().awaitListenersUninterruptibly();
+							System.out.print("REMOVED\n\n\n\n");
+							return false;
+						}
+							//return true;
 					}
 					}
 					Object [] newfriends= {profile,adress};
@@ -919,10 +926,30 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 	    	return false;*/
 		  try {
+			  FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
+		        futureGet.awaitUninterruptibly();
+		        if (futureGet.isSuccess()) {
+		        	App test;
+		        	ArrayList <Object[]> friends= (ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+		        	
+		        	test=new App("exit", peerId,nickName);
+					test.setMytype(App.type.friends);
+					for (int i=0;i<friends.size();i++) {
+						if (friends.get(i)[1]!=null) {
+					FutureDirect futureDirect = _dht.peer().sendDirect((PeerAddress) friends.get(i)[1]).object(test).start();
+			
+					futureDirect.awaitListenersUninterruptibly();
+						}
+					}
+					
+					}
 			  _dht.remove(Number160.createHash("friendsList"+peerId));
-			return searchFriends2b("test", nickName, key);
+			return searchFriends2c("test", nickName, key);
 			
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
