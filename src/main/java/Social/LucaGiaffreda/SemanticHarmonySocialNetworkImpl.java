@@ -197,7 +197,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}).awaitListenersUninterruptibly();
 		//futureGet.awaitUninterruptibly();
 		 //System.out.println("failure");
-		if(futureGet.isSuccess()) {
+		if(futureGet.isSuccess()&&!futureGet.isEmpty()) {
 		try {
 			/*ArrayList<Object[]> fList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
 			ArrayList<String> friendsName =new ArrayList<String>();
@@ -209,8 +209,8 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				friendsName.add((String) friends[0]);
 			}*/
 			ArrayList<Object[]> oldList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
-			Object [] newfriends= {_nick_name,_profile_key ,adress};
-			oldList.add(newfriends);
+			Object [] me= {_nick_name,_profile_key ,adress};
+			oldList.add(me);
 			_dht.put(Number160.createHash("userList"))
             .data(new Data(oldList)).start().awaitListenersUninterruptibly();
 			//return friendsName;
@@ -222,6 +222,16 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			e.printStackTrace();
 		}
 		}else {
+			ArrayList<Object[]> userList=new ArrayList<Object[]>();
+			Object [] me= {_nick_name,_profile_key ,adress};
+			userList.add(me);
+			try {
+				_dht.put(Number160.createHash("userList"))
+				.data(new Data(userList)).start().awaitListenersUninterruptibly();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		//	 System.out.println("non esiste");
 		}
 		return false;
