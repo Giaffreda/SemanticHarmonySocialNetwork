@@ -129,7 +129,7 @@ public class AppTest
 	 		assertFalse(peer2.getConnector().sendMessage3(3, peer2.getNickname(), "test message2"));
 	 	}
 	 	@Test
-	    @Order (2)
+	    @Order (3)
 	    //@Disabled
 	    void testCaseGroupChat() throws InterruptedException {
 	 		InputStream sysInBackup = System.in; 
@@ -149,8 +149,8 @@ public class AppTest
 	 		System.setIn(sysInBackup);
 	 	}
 	 	@Test
-	    @Order (3)
-	    //@Disabled
+	    @Order (4)
+	    @Disabled
 	    void testCaseChangekey() throws InterruptedException {
 	 		/*InputStream sysInBackup = System.in; 
 	 		 String input = "False\n True\n 0\n True\n 1\n False\n";
@@ -185,7 +185,7 @@ public class AppTest
 
 	@Test
     @Order (5)
-    //@Disabled
+    @Disabled
     void testCaseChangeExit() throws InterruptedException {
  		/*InputStream sysInBackup = System.in; 
  		 String input = "False\n True\n 0\n True\n 1\n False\n";
@@ -217,7 +217,7 @@ public class AppTest
  		assertArrayEquals(expectedfriends.toArray(), peer1.getFriendsList().toArray());
  	}
 	@Test
-    @Order (4)
+    @Order (6)
     //@Disabled
     void testCaseGetQuestion() throws InterruptedException {
  		/*InputStream sysInBackup = System.in; 
