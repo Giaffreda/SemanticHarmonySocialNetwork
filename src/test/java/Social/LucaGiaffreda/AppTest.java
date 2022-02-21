@@ -90,19 +90,19 @@ public class AppTest
 	 		//TextIO textIO = TextIoFactory.getTextIO();
 	 		
 	 		peer0.setProfile_key("0000");
-	 		assertTrue(peer0.getConnector().join("0000", peer0.getNickname()));
+	 		assertTrue(peer0.getConnector().join2("0000", peer0.getNickname()));
 	 		//TimeUnit.SECONDS.sleep(1);
 	 		peer1.setProfile_key("0001");
 	 		//assertEquals(1, peer1.hammingDistance(peer1.getNickname(), peer0.getNickname()));
-	 		assertTrue(peer1.getConnector().join("0001", peer1.getNickname()));
+	 		assertTrue(peer1.getConnector().join2("0001", peer1.getNickname()));
 	 		peer2.setProfile_key("0011");
 	 		//assertTrue(peer1.connect());TimeUnit.SECONDS.sleep(1);
 	 		//TimeUnit.SECONDS.sleep(1);
-	 		assertTrue(peer2.getConnector().join("0011",peer2.getNickname()));
+	 		assertTrue(peer2.getConnector().join2("0011",peer2.getNickname()));
 	 		
 	 		peer3.setProfile_key("0111");
 	 		//TimeUnit.SECONDS.sleep(1);
-	 		assertTrue(peer3.getConnector().join("0111", peer3.getNickname()));
+	 		assertTrue(peer3.getConnector().join2("0111", peer3.getNickname()));
 	 		
 	 		TimeUnit.SECONDS.sleep(2);
 	 		ArrayList<String> test= new ArrayList<String>();
