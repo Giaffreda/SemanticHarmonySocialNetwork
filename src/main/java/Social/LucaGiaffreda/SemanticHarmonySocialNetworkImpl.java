@@ -811,6 +811,82 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		}
 		return false;
 		}
+	  public boolean groupChat2(ArrayList<Integer> friends,ArrayList<String> nickFriends) {
+			/*ArrayList<PeerAddress> peerfreinds=new ArrayList<PeerAddress>();
+			System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAA friends"+friendList.size());
+			for (int i=0;i<friendList.size();i++) {
+				System.out.println("peer ="+friendList.get(i)[0]+" peeradress" +friendList.get(i)[1]);
+				peerfreinds.add((PeerAddress) friendList.get(i)[1]);
+			}
+			createGroupChat("gruppo", peerfreinds);*/
+			
+			 	FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
+			 	futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+			 @Override
+			 public void operationComplete(FutureGet future) throws Exception {
+			  if(future.isSuccess()) { // this flag indicates if the future was successful
+			   System.out.println("success");
+			   
+			  } else {
+			   System.out.println("failure");
+			  }
+			 }
+			}).awaitListenersUninterruptibly();
+		 //System.out.println("failure");
+		if(futureGet.isSuccess()) {
+		try {
+			ArrayList<Object[]> fList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+			ArrayList<PeerAddress> friendsadress =new ArrayList<PeerAddress>();
+			TextIO textIO = TextIoFactory.getTextIO();
+			//textIO=new TextIO(System.in);
+			Scanner keyboard = new Scanner(System.in);
+			//textIO.dispose(resultData);;
+			/*
+			 * if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
+		ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
+		while (i<friends.size()) {
+			System.out.println("friends n "+i+" "+friends.get(i));
+			i++;
+		}
+		while(textIO.newBooleanInputReader().withDefaultValue(false).read("\n vuoi aggiungere amici al gruppo?\n")) {
+			peerfreinds.add(textIO.newIntInputReader().withDefaultValue(0).read("/n n friends"));
+			}
+		}
+			 * *//*
+			if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
+			/*for(Object[] friends:fList)
+			{
+				friendsadress.add( (PeerAddress) friends[1]);
+			}*/
+				/*for (int i=0;i<fList.size();i++) {
+					System.out.println("friends n "+i+" "+fList.get(i)[0]);
+				}
+				}
+			while(textIO.newBooleanInputReader().withDefaultValue(false).read("\n vuoi aggiungere amici al gruppo?\n")) {
+				friendsadress.add((PeerAddress) fList.get(textIO.newIntInputReader().withDefaultValue(0).read("/n n friends"))[1]);
+				}*/
+			System.out.println("vuoi conoscere la lista di amici");
+			for(int i=0;i<friends.size();i++) {
+				//System.out.println(fList.get(friends.get(i))[0]+" "+(nickFriends.get(i)));
+			if(fList.get(friends.get(i))[0].equals(nickFriends.get(i))) {
+			
+				friendsadress.add((PeerAddress) fList.get(friends.get(i))[1]);
+			}
+			}
+			return createGroupChat("gruppo", friendsadress);
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+		
+			e.printStackTrace();
+		}
+		}else {
+			 System.out.println("non esiste");
+			 return false;
+		}
+		return false;
+		}
 	  /*public void message(String nick) {
 			TextIO textIO = TextIoFactory.getTextIO();
 		    TextTerminal terminal = textIO.getTextTerminal();

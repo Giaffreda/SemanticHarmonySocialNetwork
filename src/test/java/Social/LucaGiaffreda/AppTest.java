@@ -132,7 +132,7 @@ public class AppTest
 	    @Order (3)
 	    //@Disabled
 	    void testCaseGroupChat() throws InterruptedException {
-	 		InputStream sysInBackup = System.in; 
+	 		/*InputStream sysInBackup = System.in; 
 	 		 String input = "False\n True\n 0\n True\n 1\n False\n";
 		 	    InputStream in = new ByteArrayInputStream(input.getBytes());
 		 	    System.setIn(in);
@@ -141,12 +141,17 @@ public class AppTest
 	 		TextTerminal terminal = textIO.getTextTerminal();
 	 		textIO.newBooleanInputReader().withDefaultValue(false);
 	 		textIO.newBooleanInputReader().withTrueInput("N");
-	 		assertTrue(peer1.groupChat());
+	 		*/
+	 		ArrayList<String> nickFriends=(ArrayList<String>) peer1.getFriendsList();
+	 		ArrayList<Integer> numberfriends=new ArrayList<Integer>();
+	 		numberfriends.add(0);
+	 		numberfriends.add(1);
+	 		assertTrue(peer1.getConnector().groupChat2(numberfriends, nickFriends));
 	 		assertTrue(peer1.getConnector().sendMessage3(2, peer0.getNickname(), "test group message"));
-	 		textIO.newBooleanInputReader().withTrueInput("N");
+	 		//textIO.newBooleanInputReader().withTrueInput("N");
 	 		//assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message2"));
 	 		//assertFalse(peer2.getConnector().sendMessage3(3, peer2.getNickname(), "test message2"));
-	 		System.setIn(sysInBackup);
+	 		//System.setIn(sysInBackup);
 	 	}
 	 	@Test
 	    @Order (4)

@@ -83,7 +83,7 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 			user.message();
 			break;
 		case 3:
-			user.groupChat();
+			user.groupChat2();
 			break;
 		case 4:
 			user.changeKey( );
