@@ -223,7 +223,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		}
 		}else {
 			ArrayList<Object[]> userList=new ArrayList<Object[]>();
-			Object [] me= {_nick_name,_profile_key ,adress};
+			Object [] me= {_nick_name,_profile_key ,_dht.peer().peerAddress()};
 			userList.add(me);
 			try {
 				_dht.put(Number160.createHash("userList"))
@@ -254,7 +254,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}).awaitListenersUninterruptibly();
 		//futureGet.awaitUninterruptibly();
 		 //System.out.println("failure");
-		if(futureGet.isSuccess()) {
+		if(futureGet.isSuccess()&&!futureGet.isEmpty()) {
 		try {
 			ArrayList<Object[]> fList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
 			ArrayList<String> friendsName =new ArrayList<String>();
