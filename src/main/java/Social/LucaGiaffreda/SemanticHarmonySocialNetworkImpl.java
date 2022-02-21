@@ -213,7 +213,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			oldList.add(me);
 			_dht.put(Number160.createHash("userList"))
             .data(new Data(oldList)).start().awaitListenersUninterruptibly();
-			//return friendsName;
+			return searchFriends2c("useless", _nick_name, _profile_key);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
