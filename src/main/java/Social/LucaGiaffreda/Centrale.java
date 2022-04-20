@@ -74,7 +74,7 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 		System.out.println("8 = see spam message");
 		System.out.println("9 = see list freinds");
 		int option = textIO.newIntInputReader()
-				.withMaxVal(8)
+				.withMaxVal(9)
 				.withMinVal(1)
 				.read("Option");
 		switch (option) {

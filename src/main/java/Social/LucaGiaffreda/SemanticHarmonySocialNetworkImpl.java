@@ -1191,13 +1191,13 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			 //System.out.println("failure");
 			if(futureGet.isSuccess()&&!futureGet.isEmpty()) {
 			try {
-				ArrayList<Object[]> sList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+				ArrayList<String> sList=(ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
 				ArrayList<String> friendsName =new ArrayList<String>();
 				// System.out.println(peerId+" get friends +"+fList.size());
-				for(Object[] friends:sList)
+				for(String friends:sList)
 				{
 					// System.out.println(peerId+" add friends "+friends[0]);
-					friendsName.add((String) friends[0]);
+					friendsName.add( friends);
 				}
 				return friendsName;
 			} catch (ClassNotFoundException e) {
