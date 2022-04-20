@@ -82,10 +82,12 @@ public User(String nickname,int id, String adress) {
 							ArrayList<String> spam=(ArrayList<String>) connector.getSpamList();
 							for (String s:spam )
 								System.out.println(" in spam list ="+s);
-							if(!spam.contains(a.getNickname())||spam==null) {
-							terminal.printf("\n"+peerid+"] (Direct Message Received) message =="+a.getText()+"\n\n");
-							}else {
+							if(spam.contains(a.getNickname())) {
 								addSpamMessages(a);
+								
+							}else {
+								terminal.printf("\n"+peerid+"] (Direct Message Received) message =="+a.getText()+"\n\n");
+								
 							}
 							}else if(a.getMytype()==App.type.multichat){
 								
