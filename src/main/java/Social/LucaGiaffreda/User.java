@@ -80,6 +80,8 @@ public User(String nickname,int id, String adress) {
 						
 						}else if(a.getMytype()==App.type.chat){
 							ArrayList<String> spam=(ArrayList<String>) connector.getSpamList();
+							for (String s:spam )
+								System.out.println(" in spam list ="+s);
 							if(!spam.contains(a.getNickname())) {
 							terminal.printf("\n"+peerid+"] (Direct Message Received) message =="+a.getText()+"\n\n");
 							}else {
