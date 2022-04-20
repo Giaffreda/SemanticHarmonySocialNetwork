@@ -1210,7 +1210,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}else {
 			//	 System.out.println("non esiste");
 			}
-			return null;
+			return new ArrayList<String>();
 		}
 	  public List<String> getQuestion() {
 		  FutureGet futureGet = _dht.get(Number160.createHash("question")).start();
