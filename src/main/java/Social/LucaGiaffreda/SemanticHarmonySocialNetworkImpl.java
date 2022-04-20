@@ -1086,6 +1086,132 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		        }
 		        return null;
 	  }
+	  public boolean addSpam(ArrayList<String> profile) throws IOException {
+		  App test;
+		  try {
+				FutureGet futureGet = _dht.get(Number160.createHash("spamList"+peerId)).start();
+				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+					 @Override
+					 public void operationComplete(FutureGet future) throws Exception {
+					  /*if(future.isSuccess()) { // this flag indicates if the future was successful
+					  
+						  System.out.println("success");
+					   
+					  } else {
+					   System.out.println("failure");
+					  }*/
+					 }
+					}).awaitListenersUninterruptibly();
+				//futureGet.awaitUninterruptibly();
+				if (futureGet.isSuccess()) {
+					ArrayList<String> oldList= new ArrayList<String>();
+					if(!futureGet.isEmpty()) {
+					 oldList=(ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
+					//ArrayList<Object[]> oldList=_dht.get(Number160.createHash("friendsList")).;
+					/* FuturePut future = _dht.put(Number160.createHash(profile))
+	                         .data(new Data(name)).start().awaitUninterruptibly();*/
+					
+					}
+					for(String nick:profile) {
+					oldList.add(nick);
+					}
+					_dht.put(Number160.createHash("spamList"+peerId))
+                    .data(new Data(oldList)).start().awaitListenersUninterruptibly();
+					/*test=new App("prova", peerId,name,_dht.peer().peerAddress());
+					test.setMytype(App.type.response);
+					FutureDirect futureDirect = _dht.peer().sendDirect(adress).object(test).start();
+					
+					futureDirect.awaitListenersUninterruptibly();
+				*/
+					return true;
+					
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+			}
+	  public boolean removeSpam(ArrayList<String> profile) throws IOException {
+		  try {
+				FutureGet futureGet = _dht.get(Number160.createHash("spamList"+peerId)).start();
+				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+					 @Override
+					 public void operationComplete(FutureGet future) throws Exception {
+					  if(future.isSuccess()) { // this flag indicates if the future was successful
+					   System.out.println("success");
+					   
+					  } else {
+					   System.out.println("failure");
+					  }
+					 }
+					}).awaitListenersUninterruptibly();
+				
+				if (futureGet.isSuccess()) {
+					ArrayList<String> oldList=(ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
+					//ArrayList<Object[]> oldList=_dht.get(Number160.createHash("friendsList")).;
+					/* FuturePut future = _dht.put(Number160.createHash(profile))
+	                         .data(new Data(name)).start().awaitUninterruptibly();*/
+					
+					
+					/*int i=0;
+					while(!oldList.get(i)[0].equals(newfriends[0]))
+						i++*/;
+					for(String nick:profile) {
+						oldList.remove(profile);
+					}_dht.put(Number160.createHash("spamList"+peerId))
+                    .data(new Data(oldList)).start().awaitListenersUninterruptibly();
+					/*test=new App("prova", peerId,name,_dht.peer().peerAddress());
+					test.setMytype(App.type.response);
+					FutureDirect futureDirect = _dht.peer().sendDirect(adress).object(test).start();
+					
+					futureDirect.awaitListenersUninterruptibly();
+				*/
+					return true;
+					
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+			}
+		public List<String> getSpamList() {
+			FutureGet futureGet = _dht.get(Number160.createHash("spamList"+peerId)).start();
+			futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+				 @Override
+				 public void operationComplete(FutureGet future) throws Exception {
+				  if(future.isSuccess()) { // this flag indicates if the future was successful
+				  // System.out.println("success");
+				   
+				  } else {
+				  // System.out.println("failure");
+				  }
+				 }
+				}).awaitListenersUninterruptibly();
+			//futureGet.awaitUninterruptibly();
+			 //System.out.println("failure");
+			if(futureGet.isSuccess()&&!futureGet.isEmpty()) {
+			try {
+				ArrayList<Object[]> sList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+				ArrayList<String> friendsName =new ArrayList<String>();
+				// System.out.println(peerId+" get friends +"+fList.size());
+				for(Object[] friends:sList)
+				{
+					// System.out.println(peerId+" add friends "+friends[0]);
+					friendsName.add((String) friends[0]);
+				}
+				return friendsName;
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}else {
+			//	 System.out.println("non esiste");
+			}
+			return null;
+		}
 	  public List<String> getQuestion() {
 		  FutureGet futureGet = _dht.get(Number160.createHash("question")).start();
 	        futureGet.awaitUninterruptibly();

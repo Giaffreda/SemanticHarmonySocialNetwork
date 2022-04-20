@@ -68,8 +68,13 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 		System.out.println("2 = message");
 		System.out.println("3 = group chat");
 		System.out.println("4 = change key");
+		System.out.println("5 = see spam friends");
+		System.out.println("6 = add spam friend");
+		System.out.println("7 = remove spam friend");
+		System.out.println("8 = see spam message");
+		System.out.println("9 = see list freinds");
 		int option = textIO.newIntInputReader()
-				.withMaxVal(4)
+				.withMaxVal(8)
 				.withMinVal(1)
 				.read("Option");
 		switch (option) {
@@ -89,6 +94,22 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 		case 4:
 			user.changeKey( );
 			break;
+		case 5:
+			user.mostraSpam();
+			break;
+		case 6:
+			user.addSpam();
+			break;
+		case 7:
+			user.removeSpam();
+			break;
+		case 8:
+			user.getSpamMessages();
+			break;
+		case 9:
+			user.getFriendsList();
+			break;
+		
 		default:
 			break;
 		}

@@ -17,6 +17,7 @@ private String profile_key;
 private List <Object[]> friendsList;
 private int Id;
 private SemanticHarmonySocialNetworkImpl connector;
+private List <App> spamMessages;
 public User(String nickname,int id, String adress) {
 	this.nickname = nickname;
 	
@@ -78,7 +79,12 @@ public User(String nickname,int id, String adress) {
  			 				}*/
 						
 						}else if(a.getMytype()==App.type.chat){
+							ArrayList<String> spam=(ArrayList<String>) connector.getSpamList();
+							if(!spam.contains(a.getNickname())) {
 							terminal.printf("\n"+peerid+"] (Direct Message Received) message"+a.getText()+"\n\n");
+							}else {
+								addSpamMessages(a);
+							}
 							}else if(a.getMytype()==App.type.multichat){
 								
 								System.out.println("\n"+peerid+"] (Direct Message Received) message"+connector.getmultichat(nickname, a.getNickname())+"\n\n");
@@ -99,6 +105,7 @@ public User(String nickname,int id, String adress) {
  			}
 		}
 		connector =new SemanticHarmonySocialNetworkImpl(id, adress, new MessageListenerImpl(id));
+		spamMessages=new ArrayList<App>();
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -199,6 +206,54 @@ public boolean changeKey() {
 	//connector.searchFriends2b("test", nickname, key);
 	return connector.changeKey(nickname, key);
 }
+public boolean addSpam() throws IOException {
+	ArrayList<String> nickfreinds=new ArrayList<String>();
+	TextIO textIO = TextIoFactory.getTextIO();
+	int i=0;
+	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
+		ArrayList<String>friends= (ArrayList<String>) connector.getSpamList();
+		while (i<friends.size()) {
+			System.out.println("friends n "+i+" "+friends.get(i));
+			i++;
+		}
+		while(textIO.newBooleanInputReader().withDefaultValue(false).read("\n vuoi aggiungere amici agli spam?\n")) {
+			int choise=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
+			nickfreinds.add(friends.get(choise));
+			}
+		
+		}
+	return connector.addSpam(nickfreinds);
+}
+public boolean removeSpam() throws IOException {
+	ArrayList<String> nickfreinds=new ArrayList<String>();
+	TextIO textIO = TextIoFactory.getTextIO();
+	int i=0;
+	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
+		ArrayList<String>friends= (ArrayList<String>) connector.getSpamList();
+		while (i<friends.size()) {
+			System.out.println("friends n "+i+" "+friends.get(i));
+			i++;
+		}
+		while(textIO.newBooleanInputReader().withDefaultValue(false).read("\n vuoi rimuovere amici agli spam?\n")) {
+			int choise=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
+			nickfreinds.add(friends.get(choise));
+			}
+		
+		}
+	return connector.removeSpam(nickfreinds);
+}
+public boolean mostraSpam() throws IOException {
+	ArrayList<String> nickfreinds=new ArrayList<String>();
+	TextIO textIO = TextIoFactory.getTextIO();
+	int i=0;
+		ArrayList<String>friends= (ArrayList<String>) connector.getSpamList();
+		while (i<friends.size()) {
+			System.out.println("friends n "+i+" "+friends.get(i));
+			i++;
+		}
+	
+	return true;
+}
 public String getNickname() {
 	return nickname;
 }
@@ -219,6 +274,15 @@ public void setId(int id) {
 	this.Id = id;
 }
 public List getFriendsList() {
+	TextIO textIO = TextIoFactory.getTextIO();
+	int i=0;
+	//if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
+		ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
+		while (i<friends.size()) {
+			System.out.println("friends n "+i+" "+friends.get(i));
+			i++;
+		}
+		
 	return connector.getFriends();
 }
 public void setFriendsList(List <Object[]> freindsList) {
@@ -244,5 +308,20 @@ public int hammingDistance(String a, String b) {
 }
 public boolean exit() {
 	return connector.leaveNetwork(nickname);
+}
+public void getSpamMessages() {
+	/*List <App> appoggio=spamMessages;
+	spamMessages.clear();
+	return appoggio;*/
+	while (spamMessages.size()>0) {
+		System.out.println("Messaggio spam =" +spamMessages.get(0));
+		spamMessages.remove(0);
+		
+	}
+}
+public void addSpamMessages(App spamMessages) {
+	if(this.spamMessages.size()>10)
+		this.spamMessages.remove(0);
+	this.spamMessages.add( spamMessages);
 }
 }
