@@ -40,7 +40,7 @@ public User(String nickname,int id, String adress) {
  				TextIO textIO = TextIoFactory.getTextIO();
  				TextTerminal terminal = textIO.getTextTerminal();
  				;
- 				System.out.println("\n"+peerid+"] (Direct Message Received) "+obj+"\n\n");
+ 				//System.out.println("\n"+peerid+"] (Direct Message Received) "+obj+"\n\n");
  				
  					
  						App a = (App) obj;
@@ -81,7 +81,7 @@ public User(String nickname,int id, String adress) {
 						}else if(a.getMytype()==App.type.chat){
 							ArrayList<String> spam=(ArrayList<String>) connector.getSpamList();
 							if(!spam.contains(a.getNickname())) {
-							terminal.printf("\n"+peerid+"] (Direct Message Received) message"+a.getText()+"\n\n");
+							terminal.printf("\n"+peerid+"] (Direct Message Received) message =="+a.getText()+"\n\n");
 							}else {
 								addSpamMessages(a);
 							}
