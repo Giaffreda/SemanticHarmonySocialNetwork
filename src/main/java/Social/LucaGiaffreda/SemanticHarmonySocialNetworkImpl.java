@@ -957,6 +957,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			
 					futureDirect.awaitListenersUninterruptibly();
 					}else {
+						test.setMytype(App.type.multichat);
 						System.out.println("group messag pt 1");
 						FutureGet futureGet2 = _dht.get(Number160.createHash((String)friends.get(destination)[0])).start();
 				        futureGet2.awaitUninterruptibly();

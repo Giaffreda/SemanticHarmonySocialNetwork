@@ -325,7 +325,7 @@ public void getSpamMessages() {
 	}
 }
 public void addSpamMessages(App spamMessages) {
-	if(this.spamMessages.size()>10)
+	if(this.spamMessages.size()>=10)
 		this.spamMessages.remove(0);
 	this.spamMessages.add( spamMessages);
 }
