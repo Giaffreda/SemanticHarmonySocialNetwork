@@ -949,11 +949,11 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		        if (futureGet.isSuccess()) {
 		        	ArrayList <Object[]> friends= (ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
 		        	
-		        	test=new App("prova", peerId,source);
+		        	test=new App((String)message, peerId,source);
 					test.setMytype(App.type.chat);
 					if(friends.size()> destination) {
 					if(friends.get(destination)[1]!=null) {
-					FutureDirect futureDirect = _dht.peer().sendDirect((PeerAddress) friends.get(destination)[1]).object(message).start();
+					FutureDirect futureDirect = _dht.peer().sendDirect((PeerAddress) friends.get(destination)[1]).object(test).start();
 			
 					futureDirect.awaitListenersUninterruptibly();
 					}else {
@@ -966,7 +966,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						peers_on_topic = (HashSet<PeerAddress>) futureGet2.dataMap().values().iterator().next().object();
 			        		for(PeerAddress peer:peers_on_topic)
 						{
-							FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(message).start();
+							FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 							futureDirect.awaitUninterruptibly();
 						}
 						}else {
