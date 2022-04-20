@@ -1157,7 +1157,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					while(!oldList.get(i)[0].equals(newfriends[0]))
 						i++*/;
 					for(String nick:profile) {
-						oldList.remove(profile);
+						oldList.remove(nick);
 					}_dht.put(Number160.createHash("spamList"+peerId))
                     .data(new Data(oldList)).start().awaitListenersUninterruptibly();
 					/*test=new App("prova", peerId,name,_dht.peer().peerAddress());
