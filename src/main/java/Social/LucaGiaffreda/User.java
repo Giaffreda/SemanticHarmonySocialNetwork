@@ -211,7 +211,7 @@ public boolean addSpam() throws IOException {
 	TextIO textIO = TextIoFactory.getTextIO();
 	int i=0;
 	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
-		ArrayList<String>friends= (ArrayList<String>) connector.getSpamList();
+		ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
 		while (i<friends.size()) {
 			System.out.println("friends n "+i+" "+friends.get(i));
 			i++;
@@ -228,8 +228,9 @@ public boolean removeSpam() throws IOException {
 	ArrayList<String> nickfreinds=new ArrayList<String>();
 	TextIO textIO = TextIoFactory.getTextIO();
 	int i=0;
-	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
+	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici in spam")) {
 		ArrayList<String>friends= (ArrayList<String>) connector.getSpamList();
+		if(friends!=null)
 		while (i<friends.size()) {
 			System.out.println("friends n "+i+" "+friends.get(i));
 			i++;
