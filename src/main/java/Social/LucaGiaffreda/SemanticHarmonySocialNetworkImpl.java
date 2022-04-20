@@ -957,11 +957,12 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			
 					futureDirect.awaitListenersUninterruptibly();
 					}else {
-						test.setMytype(App.type.multichat);
 						System.out.println("group messag pt 1");
 						FutureGet futureGet2 = _dht.get(Number160.createHash((String)friends.get(destination)[0])).start();
 				        futureGet2.awaitUninterruptibly();
 				        if (futureGet2.isSuccess()) {
+				        	test.setNickname((String) friends.get(destination)[0]);
+				        	test.setText(source+ " :"+test.getText());
 				        	System.out.println("group messag pt 2");
 				        HashSet<PeerAddress> peers_on_topic;
 						peers_on_topic = (HashSet<PeerAddress>) futureGet2.dataMap().values().iterator().next().object();
