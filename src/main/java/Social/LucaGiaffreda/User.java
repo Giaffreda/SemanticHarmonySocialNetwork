@@ -86,7 +86,7 @@ public User(String nickname,int id, String adress) {
 								addSpamMessages(a);
 								
 							}else {
-								terminal.printf("\n"+peerid+"] (Direct Message Received) message =="+a.getText()+"\n\n");
+								terminal.printf("\n"+peerid+"] (Direct Message Received by "+a.getNickname()+" ) message =="+a.getText()+"\n\n");
 								
 							}
 							}else if(a.getMytype()==App.type.multichat){
@@ -195,7 +195,8 @@ public boolean groupChat2() {
 			nickfreinds.add(friends.get(choise));
 			}
 		}
-	return connector.groupChat2(peerfreinds,nickfreinds);
+	String name=textIO.newStringInputReader().withDefaultValue("gruppo").read("Inserisci nome gruppo");
+	return connector.groupChat2(name,peerfreinds,nickfreinds);
 }
 public boolean changeKey() {
 	List<String> question= connector.getUserProfileQuestions();
