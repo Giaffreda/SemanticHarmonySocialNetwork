@@ -55,8 +55,8 @@ public User(String nickname,int id, String adress) {
 								//if(!Friend.contains(a.getNickname())) {
  			 					//terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"con indirizzo"+a.getAdress()+"sender ="+sender+"\n\n");
 								
-							System.out.println("\n"+peerid+" risultato getfreinds"+connector.getFriends5c(nickname, a.getNickname(),sender)+"\n\n");
-							
+							//System.out.println("\n"+peerid+" risultato getfreinds"+connector.getFriends5c(nickname, a.getNickname(),sender)+"\n\n");
+							connector.getFriends5c(nickname, a.getNickname(),sender);
  			 					//friendsList.add(newFriends);
  			 					/*}else {
  			 						terminal.printf("\n gia' amici"+"\n\n");
@@ -91,11 +91,12 @@ public User(String nickname,int id, String adress) {
 							}
 							}else if(a.getMytype()==App.type.multichat){
 								
-								System.out.println("\n"+peerid+"] (Direct Message Received) message"+connector.getmultichat(nickname, a.getNickname())+"\n\n");
-								
+								//System.out.println("\n"+peerid+"] (Direct Message Received) message"+connector.getmultichat(nickname, a.getNickname())+"\n\n");
+								connector.getmultichat(nickname, a.getNickname());
 								} else {
-									System.out.println("\n"+peerid+" aggiunge un nuovo amico che ha i dati"+a+connector.addFriends(a.getNickname(), sender)+" con risultato"+"\n\n");
-							//	Object newFriends[]= {a.getNickname(),sender};
+									//System.out.println("\n"+peerid+" aggiunge un nuovo amico che ha i dati"+a+connector.addFriends(a.getNickname(), sender)+" con risultato"+"\n\n");
+									connector.addFriends(a.getNickname(), sender);
+									//	Object newFriends[]= {a.getNickname(),sender};
 								//connector.addFriends(a.getNickname(), sender);
 								//friendsList.add(newFriends);
 								}

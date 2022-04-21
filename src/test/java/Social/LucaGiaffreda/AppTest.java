@@ -11,6 +11,7 @@ import Social.LucaGiaffreda.App;
 import Social.LucaGiaffreda.SemanticHarmonySocialNetworkImpl;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -260,4 +261,124 @@ public class AppTest
  		assertArrayEquals(expectedfriends.toArray(), peer1.getFriendsList().toArray());*/
 		assertArrayEquals(questions.toArray(), peer1.getConnector().getQuestion().toArray());
  	}
+	@Test
+    @Order (7)
+    //@Disabled
+    void testCaseAddSpam() throws InterruptedException, IOException {
+ 		/*InputStream sysInBackup = System.in; 
+ 		 String input = "False\n True\n 0\n True\n 1\n False\n";
+	 	    InputStream in = new ByteArrayInputStream(input.getBytes());
+	 	    System.setIn(in);
+	 	    Scanner inp=new Scanner(System.in);
+ 		TextIO textIO = TextIoFactory.getTextIO();
+ 		TextTerminal terminal = textIO.getTextTerminal();
+ 		textIO.newBooleanInputReader().withDefaultValue(false);
+ 		textIO.newBooleanInputReader().withTrueInput("N");
+ 		assertTrue(peer1.groupChat());
+ 		assertTrue(peer1.getConnector().sendMessage3(2, peer0.getNickname(), "test group message"));
+ 		textIO.newBooleanInputReader().withTrueInput("N");
+ 		//assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message2"));
+ 		//assertFalse(peer2.getConnector().sendMessage3(3, peer2.getNickname(), "test message2"));
+ 		System.setIn(sysInBackup);
+ 		ArrayList<String> questions=new ArrayList<String>();
+		        		questions.add("Ho una parola gentile per tutti");
+		       		 questions.add("Ho una parola gentile per tutti");
+		       		 questions.add("Ho una parola gentile per tutti");
+		       		 questions.add("Ho una parola gentile per tutti");*/
+		//assertTrue(peer2.exit());
+ 		//TimeUnit.SECONDS.sleep(1);
+		ArrayList<String> spamlist= new ArrayList<String>();
+		spamlist.add(peer1.getNickname());
+		assertTrue(peer0.getConnector().addSpam(spamlist));
+		//assertTrue(peer0.getConnector().sendMessage3(0, peer0.getNickname(), "test message"));
+ 		
+ 		ArrayList<String> expectedfriendsSpam= new ArrayList<String>();
+ 		expectedfriendsSpam.add(peer1.getNickname());
+ 		ArrayList<String> a= (ArrayList<String>) peer0.getConnector().getSpamList();
+ 		for (String b:a)
+ 			System.out.print("aaaa"+b);
+ 		assertArrayEquals(expectedfriendsSpam.toArray(), peer0.getConnector().getSpamList().toArray());
+ 	}
+	@Test
+    @Order (9)
+    @Disabled
+    void testCaseSeeSpamMessages() throws InterruptedException, IOException {
+ 		/*InputStream sysInBackup = System.in; 
+ 		 String input = "False\n True\n 0\n True\n 1\n False\n";
+	 	    InputStream in = new ByteArrayInputStream(input.getBytes());
+	 	    System.setIn(in);
+	 	    Scanner inp=new Scanner(System.in);
+ 		TextIO textIO = TextIoFactory.getTextIO();
+ 		TextTerminal terminal = textIO.getTextTerminal();
+ 		textIO.newBooleanInputReader().withDefaultValue(false);
+ 		textIO.newBooleanInputReader().withTrueInput("N");
+ 		assertTrue(peer1.groupChat());
+ 		assertTrue(peer1.getConnector().sendMessage3(2, peer0.getNickname(), "test group message"));
+ 		textIO.newBooleanInputReader().withTrueInput("N");
+ 		//assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message2"));
+ 		//assertFalse(peer2.getConnector().sendMessage3(3, peer2.getNickname(), "test message2"));
+ 		System.setIn(sysInBackup);
+ 		ArrayList<String> questions=new ArrayList<String>();
+		        		questions.add("Ho una parola gentile per tutti");
+		       		 questions.add("Ho una parola gentile per tutti");
+		       		 questions.add("Ho una parola gentile per tutti");
+		       		 questions.add("Ho una parola gentile per tutti");*/
+		//assertTrue(peer2.exit());
+ 		//TimeUnit.SECONDS.sleep(1);
+		//ArrayList<String> spamlist= new ArrayList<String>();
+		//spamlist.add(peer1.getNickname());
+		//assertTrue(peer0.getConnector().addSpam(spamlist));
+		assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message"));
+ 		
+ 		ArrayList<String> expectedfriendsSpam= new ArrayList<String>();
+ 		expectedfriendsSpam.add(peer1.getNickname());
+ 		ArrayList<String> a= (ArrayList<String>) peer0.getConnector().getSpamList();
+ 		for (String b:a)
+ 			System.out.print("aaaa"+b);
+ 		assertArrayEquals(expectedfriendsSpam.toArray(), peer0.getConnector().getSpamList().toArray());
+ 	}
+
+	@Test
+    @Order (8)
+    @Disabled
+    void testCaseRemoveSpam() throws InterruptedException, IOException {
+ 		/*InputStream sysInBackup = System.in; 
+ 		 String input = "False\n True\n 0\n True\n 1\n False\n";
+	 	    InputStream in = new ByteArrayInputStream(input.getBytes());
+	 	    System.setIn(in);
+	 	    Scanner inp=new Scanner(System.in);
+ 		TextIO textIO = TextIoFactory.getTextIO();
+ 		TextTerminal terminal = textIO.getTextTerminal();
+ 		textIO.newBooleanInputReader().withDefaultValue(false);
+ 		textIO.newBooleanInputReader().withTrueInput("N");
+ 		assertTrue(peer1.groupChat());
+ 		assertTrue(peer1.getConnector().sendMessage3(2, peer0.getNickname(), "test group message"));
+ 		textIO.newBooleanInputReader().withTrueInput("N");
+ 		//assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message2"));
+ 		//assertFalse(peer2.getConnector().sendMessage3(3, peer2.getNickname(), "test message2"));
+ 		System.setIn(sysInBackup);
+ 		ArrayList<String> questions=new ArrayList<String>();
+		        		questions.add("Ho una parola gentile per tutti");
+		       		 questions.add("Ho una parola gentile per tutti");
+		       		 questions.add("Ho una parola gentile per tutti");
+		       		 questions.add("Ho una parola gentile per tutti");*/
+		//assertTrue(peer2.exit());
+ 		//TimeUnit.SECONDS.sleep(1);
+		ArrayList<String> spamlist= new ArrayList<String>();
+		spamlist.add(peer2.getNickname());
+		
+		assertTrue(peer0.getConnector().addSpam(spamlist));
+		spamlist.add(peer1.getNickname());
+		spamlist.remove(peer2.getNickname());
+		assertTrue(peer0.getConnector().removeSpam(spamlist));
+		//assertTrue(peer0.getConnector().sendMessage3(0, peer0.getNickname(), "test message"));
+ 		
+ 		ArrayList<String> expectedfriendsSpam= new ArrayList<String>();
+ 		expectedfriendsSpam.add(peer2.getNickname());
+ 		ArrayList<String> a= (ArrayList<String>) peer0.getConnector().getSpamList();
+ 		for (String b:a)
+ 			System.out.print("aaaa"+b);
+ 		assertArrayEquals(expectedfriendsSpam.toArray(), peer0.getConnector().getSpamList().toArray());
+ 	}
+
 }
