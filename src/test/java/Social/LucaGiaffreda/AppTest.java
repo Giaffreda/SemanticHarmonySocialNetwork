@@ -146,7 +146,7 @@ public class AppTest
 	 		ArrayList<Integer> numberfriends=new ArrayList<Integer>();
 	 		numberfriends.add(0);
 	 		numberfriends.add(1);
-	 		assertTrue(peer1.getConnector().groupChat2(numberfriends, nickFriends));
+	 		assertTrue(peer1.getConnector().groupChat2("gruppo",numberfriends, nickFriends));
 	 		assertTrue(peer1.getConnector().sendMessage3(2, peer0.getNickname(), "test group message"));
 	 		//textIO.newBooleanInputReader().withTrueInput("N");
 	 		//assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message2"));
