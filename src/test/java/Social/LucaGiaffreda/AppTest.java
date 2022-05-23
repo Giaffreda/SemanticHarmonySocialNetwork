@@ -13,7 +13,10 @@ import Social.LucaGiaffreda.SemanticHarmonySocialNetworkImpl;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -89,26 +92,48 @@ public class AppTest
 
 	 		// do your thing
 	 		//TextIO textIO = TextIoFactory.getTextIO();
+	 		ArrayList<Integer> answer0= new ArrayList<Integer>();
 	 		
-	 		peer0.setProfile_key("0000");
-	 		assertTrue(peer0.getConnector().join2("0000", peer0.getNickname()));
+	 		answer0.addAll(Arrays.asList(0,0,0,0,0));
+	 		ArrayList<Integer> answer1= new ArrayList<Integer>();
+	 		answer1.addAll(Arrays.asList(1,0,0,1,2));
+	 		ArrayList<Integer> answer2= new ArrayList<Integer>();
+	 		answer2.addAll(Arrays.asList(0,0,2,1,3));
+	 		ArrayList<Integer> answer3= new ArrayList<Integer>();
+	 		answer3.addAll(Arrays.asList(1,0,3,3,3));
+	 		String key0,key1,key2,key3;
+	 		key0=peer0.getConnector().createAuserProfileKey(answer0);
+	 		key1=peer1.getConnector().createAuserProfileKey(answer1);
+	 		key2=peer2.getConnector().createAuserProfileKey(answer2);
+	 		key3=peer3.getConnector().createAuserProfileKey(answer3);
+	 		System.out.println("aaaaaaaaaaaaa"+key0);
+	 		System.out.println("aaaaaaaaaaaaa"+key1);
+	 		System.out.println("aaaaaaaaaaaaa"+key2);
+	 		System.out.println("aaaaaaaaaaaaa"+key3);
+	 		System.out.println("hamming distance"+peer0.getConnector().hammingDistance(key0, key1));
+	 		System.out.println("hamming distance"+peer0.getConnector().hammingDistance(key0, key2));
+	 		System.out.println("hamming distance"+peer0.getConnector().hammingDistance(key0, key3));
+	 		System.out.println("hamming distance"+peer0.getConnector().hammingDistance(key1, key2));
+	 		
+	 		peer0.setProfile_key(key0);
+	 		assertTrue(peer0.getConnector().join(key0, peer0.getNickname()));
 	 		//TimeUnit.SECONDS.sleep(1);
-	 		peer1.setProfile_key("0001");
+	 		peer1.setProfile_key(key1);
 	 		//assertEquals(1, peer1.hammingDistance(peer1.getNickname(), peer0.getNickname()));
-	 		assertTrue(peer1.getConnector().join2("0001", peer1.getNickname()));
-	 		peer2.setProfile_key("0011");
+	 		assertTrue(peer1.getConnector().join(key1, peer1.getNickname()));
+	 		peer2.setProfile_key(key2);
 	 		//assertTrue(peer1.connect());TimeUnit.SECONDS.sleep(1);
 	 		//TimeUnit.SECONDS.sleep(1);
-	 		assertTrue(peer2.getConnector().join2("0011",peer2.getNickname()));
+	 		assertTrue(peer2.getConnector().join(key2,peer2.getNickname()));
 	 		
-	 		peer3.setProfile_key("0111");
+	 		peer3.setProfile_key(key3);
 	 		//TimeUnit.SECONDS.sleep(1);
-	 		assertTrue(peer3.getConnector().join2("0111", peer3.getNickname()));
+	 		assertTrue(peer3.getConnector().join(key3, peer3.getNickname()));
 	 		
 	 		TimeUnit.SECONDS.sleep(2);
 	 		ArrayList<String> test= new ArrayList<String>();
 	 		test=
-	 				(ArrayList<String>) peer3.getFriendsList();
+	 				(ArrayList<String>) peer0.getFriendsList();
 	 		System.out.println(peer3.getNickname()+peer3.getId());
 	 		for (int i=0;i<test.size();i++)
 	 		//assertArrayEquals(test.toArray(), peer0.getFriendsList().toArray());*/
@@ -173,8 +198,11 @@ public class AppTest
 	 		//assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message2"));
 	 		//assertFalse(peer2.getConnector().sendMessage3(3, peer2.getNickname(), "test message2"));
 	 		System.setIn(sysInBackup);*/
+	 		ArrayList<Integer>answer0=new ArrayList<Integer>();
+	 		answer0.addAll(Arrays.asList(0,3,3,3,3));
+	 		
 	 		System.out.println("profilekey 1: "+peer1.getProfile_key());
-	 		peer0.setProfile_key("1111");
+	 		peer0.setProfile_key(peer0.getConnector().createAuserProfileKey(answer0));
 	 		assertTrue(peer0.getConnector().changeKey(peer0.getNickname(), peer0.getProfile_key()));
 	 		ArrayList<String> expectedfriends= new ArrayList<String>();
 	 		expectedfriends.add(peer3.getNickname());

@@ -122,10 +122,10 @@ public boolean connect() {
 	TextIO textIO = TextIoFactory.getTextIO();
 	//TextTerminal terminal = textIO.getTextTerminal();
 	for(int i=0;i<question.size();i++){
-	answer.add( textIO.newIntInputReader().withMaxVal(1).withMinVal(0).read(question.get(i)));
+	answer.add( textIO.newIntInputReader().withMaxVal(3).withMinVal(0).read(question.get(i)));
 	}
 	setProfile_key( connector.createAuserProfileKey(answer));
-	return connector.join2(profile_key, nickname);
+	return connector.join(profile_key, nickname);
 	//return false;
 }
 public boolean message() {
@@ -298,7 +298,7 @@ public void setFriendsList(List <Object[]> freindsList) {
 public SemanticHarmonySocialNetworkImpl getConnector() {
 	return connector;
 }
-public int hammingDistance(String a, String b) {
+public int hammingDistance2(String a, String b) {
 	int count=0;
 	
 		//System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA"+a.length()+" BBBBBBBBB"+ b.length());
