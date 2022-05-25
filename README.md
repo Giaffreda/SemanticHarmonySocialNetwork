@@ -25,6 +25,6 @@ Viene rimosso un amico alla lista degli spam
 L'utente può visualizzare gli ultimi messaggi spam, una volta visualizzati vengono cancellati completamente
 <h3> see list freinds </h3>
 L'utente può visualizzare la lista degli amici, e anche i vari gruppi
-
+<h3>Classe user </h3>
 Tra il main e la dht si frappone la classe User che gestisce i vari dati in input e chiama le funzione della dht.
 Tra le varie operazioni ricava le domande dalla dht con il metodo <b> getUserProfileQuestions()</b> della dht e le pone all'utente. Dopo aver risposto utilizza il metodo <b> createAuserProfileKey</b>  per generare la chiave che viene utilizzata per la join. Queste ioerazioni sono automatiche quando l'utente entra nel sistema, defferentemente da quelle del menu che vengono chiamate secondo richieste di quest'ultimo. La classe user richiede l'input e fornisce i dati per le opreazione della dht
