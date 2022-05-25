@@ -205,7 +205,7 @@ public boolean changeKey() {
 
 	List <Integer> answer =new ArrayList<>();
 	for (int i=0; i<question.size();i++) {
-		answer.add(textIO.newIntInputReader().withMaxVal(1).withMinVal(0).read(question.get(i)));
+		answer.add(textIO.newIntInputReader().withMaxVal(3).withMinVal(0).read(question.get(i)));
 	}
 	String key= connector.createAuserProfileKey(answer);
 	

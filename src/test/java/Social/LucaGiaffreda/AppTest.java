@@ -368,7 +368,7 @@ public class AppTest
 
 	@Test
     @Order (8)
-    @Disabled
+    
     void testCaseRemoveSpam() throws InterruptedException, IOException {
  		/*InputStream sysInBackup = System.in; 
  		 String input = "False\n True\n 0\n True\n 1\n False\n";

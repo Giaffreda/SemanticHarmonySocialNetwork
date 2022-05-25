@@ -1007,11 +1007,46 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 	    	return false;*/
 		  try {
-			  FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
-		        futureGet.awaitUninterruptibly();
-		        if (futureGet.isSuccess()&&!futureGet.isEmpty()) {
+			  FutureGet futureGet = _dht.get(Number160.createHash("userList")).start();
+				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+					 @Override
+					 public void operationComplete(FutureGet future) throws Exception {
+					  if(future.isSuccess()) { // this flag indicates if the future was successful
+					  // System.out.println("success");
+					   
+					  } else {
+					  // System.out.println("failure");
+					  }
+					 }
+					}).awaitListenersUninterruptibly();
+				//futureGet.awaitUninterruptibly();
+				 //System.out.println("failure");
+				if(futureGet.isSuccess()){
+					try {
+						ArrayList <Object[]> userList= (ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+						for (int k=0;k<userList.size();k++) {
+							if (userList.get(k)[0].equals(nickName)&&userList.get(k)[2].equals(_dht.peer().peerAddress())) {
+								userList.get(k)[1]=key;
+								k=userList.size();
+							}
+							_dht.put(Number160.createHash("userList"))
+							.data(new Data(userList)).start().awaitListenersUninterruptibly();
+						}
+						
+					} catch (ClassNotFoundException e) {
+					
+						e.printStackTrace();
+					} catch (IOException e) {
+						
+						e.printStackTrace();
+					}
+					//Object [] me= {_nick_name,_profile_key ,_dht.peer().peerAddress()};
+				}
+			  FutureGet futureGet2 = _dht.get(Number160.createHash("friendsList"+peerId)).start();
+		        futureGet2.awaitUninterruptibly();
+		        if (futureGet2.isSuccess()&&!futureGet2.isEmpty()) {
 		        	App test;
-		        	ArrayList <Object[]> friends= (ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+		        	ArrayList <Object[]> friends= (ArrayList<Object[]>) futureGet2.dataMap().values().iterator().next().object();
 		        	
 		        	test=new App("exit", peerId,nickName);
 					test.setMytype(App.type.friends);
@@ -1037,14 +1072,49 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		  return false;
 		}
 	  public boolean leaveNetwork(String nickname) {
-		  FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
-	        futureGet.awaitUninterruptibly();
+		  FutureGet futureGet = _dht.get(Number160.createHash("userList")).start();
+			futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+				 @Override
+				 public void operationComplete(FutureGet future) throws Exception {
+				  if(future.isSuccess()) { // this flag indicates if the future was successful
+				  // System.out.println("success");
+				   
+				  } else {
+				  // System.out.println("failure");
+				  }
+				 }
+				}).awaitListenersUninterruptibly();
+			//futureGet.awaitUninterruptibly();
+			 //System.out.println("failure");
+			if(futureGet.isSuccess()){
+				try {
+					ArrayList <Object[]> userList= (ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+					for (int k=0;k<userList.size();k++) {
+						if (userList.get(k)[0].equals(nickname)&&userList.get(k)[2].equals(_dht.peer().peerAddress())) {
+							userList.remove(k);
+							k=userList.size();
+						}
+						_dht.put(Number160.createHash("userList"))
+						.data(new Data(userList)).start().awaitListenersUninterruptibly();
+					}
+					
+				} catch (ClassNotFoundException e) {
+				
+					e.printStackTrace();
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
+				//Object [] me= {_nick_name,_profile_key ,_dht.peer().peerAddress()};
+			}
+		  FutureGet futureGet2 = _dht.get(Number160.createHash("friendsList"+peerId)).start();
+	        futureGet2.awaitUninterruptibly();
 	        App test;
 	        try {
-		        if (futureGet.isSuccess()) {
-		        	ArrayList <Object[]> friends= (ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
+		        if (futureGet2.isSuccess()) {
+		        	ArrayList <Object[]> friends= (ArrayList<Object[]>) futureGet2.dataMap().values().iterator().next().object();
 		        	
-		        	test=new App("exit", peerId,nickname);
+		        	test=new App("exit99999999", peerId,nickname);
 					test.setMytype(App.type.friends);
 					for (int i=0;i<friends.size();i++) {
 						if (friends.get(i)[1]!=null) {
