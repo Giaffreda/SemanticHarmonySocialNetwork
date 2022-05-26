@@ -40,8 +40,13 @@ in questo caso vengono inviati i messaggi, vengono inviati 3 messaggi. mentre i 
 <h3><pre><code>testCaseGroupChat()</h3></pre></code>
 In questo test viene generata una chat di gruppo, che però ha un amico insesitente quindi non viene generata. Viene eliminato l'amico inesistente e viene generata la chat di gruppo infine viene inviato un messaggio alla chat.
 <h3><pre><code>testCaseChangekey()</h3></pre></code>
+In questo test l'utente genera una nuova chiave, e poi chiama la funzione che per il cambio di chiave. Alla fine dell'operazione si controlla la nuova lista di amici
 <h3><pre><code>testCaseChangeExit()</h3></pre></code>
+In questo test un peer esce dalla rete. Un altro peer controlla la propria lista di amici, dove il peer uscito non dovrebbe essere presente
 <h3><pre><code>testCaseGetQuestion()</h3></pre></code>
+In questo test vengono richieste le domande e si controlla se esse siano quelle corrette
 <h3><pre><code>testCaseAddSpam()</h3></pre></code>
+In questo test si inserisce un amico nella lista degli spam e si controlla se la lista è corretta
 <h3><pre><code>testCaseSeeSpamMessages()</h3></pre></code>
 <h3><pre><code>testCaseRemoveSpam()</h3></pre></code>
+In questo test si rimuove un amico nella lista degli spam e si controlla se la lista è corretta
