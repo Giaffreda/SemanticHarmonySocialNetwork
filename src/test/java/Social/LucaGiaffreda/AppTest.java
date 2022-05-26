@@ -135,14 +135,14 @@ public class AppTest
 	 		test=
 	 				(ArrayList<String>) peer0.getFriendsList();
 	 		System.out.println(peer3.getNickname()+peer3.getId());
-	 		for (int i=0;i<test.size();i++)
-	 		//assertArrayEquals(test.toArray(), peer0.getFriendsList().toArray());*/
+	 		for (int i=0;i<test.size();i++) {
+	 		assertArrayEquals(test.toArray(), peer0.getFriendsList().toArray());
 	 		
-	 		System.out.println("AAAAAAAAAAAAAAAA"+test.get(i));
+	 		//System.out.println("AAAAAAAAAAAAAAAA"+test.get(i));
 	 		//assertTrue("0",peer3.connect());
 	 		// optionally, reset System.in to its original
 	 		//System.setIn(sysInBackup);
-	 		
+	 		}
 	 		
 	 		//assertTrue(peer1.getConnector().getFriends5c("peer1", "peer0", peer0.getConnector().));
 	 	}
@@ -158,21 +158,19 @@ public class AppTest
 	    @Order (3)
 	    //@Disabled
 	    void testCaseGroupChat() throws InterruptedException {
-	 		/*InputStream sysInBackup = System.in; 
-	 		 String input = "False\n True\n 0\n True\n 1\n False\n";
-		 	    InputStream in = new ByteArrayInputStream(input.getBytes());
-		 	    System.setIn(in);
-		 	    Scanner inp=new Scanner(System.in);
-	 		TextIO textIO = TextIoFactory.getTextIO();
-	 		TextTerminal terminal = textIO.getTextTerminal();
-	 		textIO.newBooleanInputReader().withDefaultValue(false);
-	 		textIO.newBooleanInputReader().withTrueInput("N");
-	 		*/
+	 		
 	 		ArrayList<String> nickFriends=(ArrayList<String>) peer1.getFriendsList();
+	 		nickFriends.add("not friends");
 	 		ArrayList<Integer> numberfriends=new ArrayList<Integer>();
 	 		numberfriends.add(0);
 	 		numberfriends.add(1);
+	 		numberfriends.add(2);
+	 		assertFalse(peer1.getConnector().groupChat2("gruppo",numberfriends, nickFriends));
+	 		
+	 		numberfriends.remove(2);
+	 		nickFriends.remove("not friends");
 	 		assertTrue(peer1.getConnector().groupChat2("gruppo",numberfriends, nickFriends));
+	 		
 	 		assertTrue(peer1.getConnector().sendMessage3(2, peer0.getNickname(), "test group message"));
 	 		//textIO.newBooleanInputReader().withTrueInput("N");
 	 		//assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message2"));
@@ -183,21 +181,7 @@ public class AppTest
 	    @Order (4)
 	    //@Disabled
 	    void testCaseChangekey() throws InterruptedException {
-	 		/*InputStream sysInBackup = System.in; 
-	 		 String input = "False\n True\n 0\n True\n 1\n False\n";
-		 	    InputStream in = new ByteArrayInputStream(input.getBytes());
-		 	    System.setIn(in);
-		 	    Scanner inp=new Scanner(System.in);
-	 		TextIO textIO = TextIoFactory.getTextIO();
-	 		TextTerminal terminal = textIO.getTextTerminal();
-	 		textIO.newBooleanInputReader().withDefaultValue(false);
-	 		textIO.newBooleanInputReader().withTrueInput("N");
-	 		assertTrue(peer1.groupChat());
-	 		assertTrue(peer1.getConnector().sendMessage3(2, peer0.getNickname(), "test group message"));
-	 		textIO.newBooleanInputReader().withTrueInput("N");
-	 		//assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message2"));
-	 		//assertFalse(peer2.getConnector().sendMessage3(3, peer2.getNickname(), "test message2"));
-	 		System.setIn(sysInBackup);*/
+	 		
 	 		ArrayList<Integer>answer0=new ArrayList<Integer>();
 	 		answer0.addAll(Arrays.asList(0,3,3,3,3));
 	 		
@@ -226,26 +210,7 @@ public class AppTest
     @Order (5)
     //@Disabled
     void testCaseChangeExit() throws InterruptedException {
- 		/*InputStream sysInBackup = System.in; 
- 		 String input = "False\n True\n 0\n True\n 1\n False\n";
-	 	    InputStream in = new ByteArrayInputStream(input.getBytes());
-	 	    System.setIn(in);
-	 	    Scanner inp=new Scanner(System.in);
- 		TextIO textIO = TextIoFactory.getTextIO();
- 		TextTerminal terminal = textIO.getTextTerminal();
- 		textIO.newBooleanInputReader().withDefaultValue(false);
- 		textIO.newBooleanInputReader().withTrueInput("N");
- 		assertTrue(peer1.groupChat());
- 		assertTrue(peer1.getConnector().sendMessage3(2, peer0.getNickname(), "test group message"));
- 		textIO.newBooleanInputReader().withTrueInput("N");
- 		//assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message2"));
- 		//assertFalse(peer2.getConnector().sendMessage3(3, peer2.getNickname(), "test message2"));
- 		System.setIn(sysInBackup);
- 		ArrayList<String> questions=new ArrayList<String>();
-		        		questions.add("Ho una parola gentile per tutti");
-		       		 questions.add("Ho una parola gentile per tutti");
-		       		 questions.add("Ho una parola gentile per tutti");
-		       		 questions.add("Ho una parola gentile per tutti");*/
+ 		
 		assertTrue(peer2.exit());
  		TimeUnit.SECONDS.sleep(1);
  		ArrayList<String> expectedfriends= new ArrayList<String>();
@@ -259,27 +224,13 @@ public class AppTest
     @Order (6)
     //@Disabled
     void testCaseGetQuestion() throws InterruptedException {
- 		/*InputStream sysInBackup = System.in; 
- 		 String input = "False\n True\n 0\n True\n 1\n False\n";
-	 	    InputStream in = new ByteArrayInputStream(input.getBytes());
-	 	    System.setIn(in);
-	 	    Scanner inp=new Scanner(System.in);
- 		TextIO textIO = TextIoFactory.getTextIO();
- 		TextTerminal terminal = textIO.getTextTerminal();
- 		textIO.newBooleanInputReader().withDefaultValue(false);
- 		textIO.newBooleanInputReader().withTrueInput("N");
- 		assertTrue(peer1.groupChat());
- 		assertTrue(peer1.getConnector().sendMessage3(2, peer0.getNickname(), "test group message"));
- 		textIO.newBooleanInputReader().withTrueInput("N");
- 		//assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message2"));
- 		//assertFalse(peer2.getConnector().sendMessage3(3, peer2.getNickname(), "test message2"));
- 		System.setIn(sysInBackup);*/
+ 	
  		ArrayList<String> questions=new ArrayList<String>();
 		        		questions.add("Ho una parola gentile per tutti");
 		       		 questions.add("Ho una parola gentile per tutti");
 		       		 questions.add("Ho una parola gentile per tutti");
 		       		 questions.add("Ho una parola gentile per tutti");
-		assertEquals(questions, peer0.getConnector().getQuestion());
+		assertEquals(questions, peer0.getConnector().getUserProfileQuestions2());
  		/*TimeUnit.SECONDS.sleep(1);
  		ArrayList<String> expectedfriends= new ArrayList<String>();
  		expectedfriends.add("gruppo");
@@ -287,7 +238,7 @@ public class AppTest
  		for (String b:a)
  			System.out.print("aaaa"+b);
  		assertArrayEquals(expectedfriends.toArray(), peer1.getFriendsList().toArray());*/
-		assertArrayEquals(questions.toArray(), peer1.getConnector().getQuestion().toArray());
+		assertArrayEquals(questions.toArray(), peer1.getConnector().getUserProfileQuestions2().toArray());
  	}
 	@Test
     @Order (7)
@@ -331,31 +282,7 @@ public class AppTest
     @Order (9)
     @Disabled
     void testCaseSeeSpamMessages() throws InterruptedException, IOException {
- 		/*InputStream sysInBackup = System.in; 
- 		 String input = "False\n True\n 0\n True\n 1\n False\n";
-	 	    InputStream in = new ByteArrayInputStream(input.getBytes());
-	 	    System.setIn(in);
-	 	    Scanner inp=new Scanner(System.in);
- 		TextIO textIO = TextIoFactory.getTextIO();
- 		TextTerminal terminal = textIO.getTextTerminal();
- 		textIO.newBooleanInputReader().withDefaultValue(false);
- 		textIO.newBooleanInputReader().withTrueInput("N");
- 		assertTrue(peer1.groupChat());
- 		assertTrue(peer1.getConnector().sendMessage3(2, peer0.getNickname(), "test group message"));
- 		textIO.newBooleanInputReader().withTrueInput("N");
- 		//assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message2"));
- 		//assertFalse(peer2.getConnector().sendMessage3(3, peer2.getNickname(), "test message2"));
- 		System.setIn(sysInBackup);
- 		ArrayList<String> questions=new ArrayList<String>();
-		        		questions.add("Ho una parola gentile per tutti");
-		       		 questions.add("Ho una parola gentile per tutti");
-		       		 questions.add("Ho una parola gentile per tutti");
-		       		 questions.add("Ho una parola gentile per tutti");*/
-		//assertTrue(peer2.exit());
- 		//TimeUnit.SECONDS.sleep(1);
-		//ArrayList<String> spamlist= new ArrayList<String>();
-		//spamlist.add(peer1.getNickname());
-		//assertTrue(peer0.getConnector().addSpam(spamlist));
+ 	
 		assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message"));
  		
  		ArrayList<String> expectedfriendsSpam= new ArrayList<String>();

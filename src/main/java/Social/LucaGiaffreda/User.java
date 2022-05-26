@@ -32,16 +32,14 @@ public User(String nickname,int id, String adress) {
  			public MessageListenerImpl(int peerid)
  			{
  				this.peerid=peerid;
- 				//type.valueOf(_nick_name);
-
+ 				
  			}
  			public Object parseMessage(PeerAddress sender, Object obj) {
  				
  				TextIO textIO = TextIoFactory.getTextIO();
  				TextTerminal terminal = textIO.getTextTerminal();
  				;
- 				//System.out.println("\n"+peerid+"] (Direct Message Received) "+obj+"\n\n");
- 				
+ 					
  					
  						App a = (App) obj;
  						try {
@@ -117,10 +115,9 @@ public User(String nickname,int id, String adress) {
 	}
 }
 public boolean connect() {
-	List<String>question = connector.getUserProfileQuestions();
+	List<String>question = connector.getUserProfileQuestions2();
 	List <Integer> answer=new ArrayList<Integer>();
 	TextIO textIO = TextIoFactory.getTextIO();
-	//TextTerminal terminal = textIO.getTextTerminal();
 	for(int i=0;i<question.size();i++){
 	answer.add( textIO.newIntInputReader().withMaxVal(3).withMinVal(0).read(question.get(i)));
 	}
@@ -200,7 +197,7 @@ public boolean groupChat2() {
 	return connector.groupChat2(name,peerfreinds,nickfreinds);
 }
 public boolean changeKey() {
-	List<String> question= connector.getUserProfileQuestions();
+	List<String> question= connector.getUserProfileQuestions2();
 		TextIO textIO = TextIoFactory.getTextIO();
 
 	List <Integer> answer =new ArrayList<>();

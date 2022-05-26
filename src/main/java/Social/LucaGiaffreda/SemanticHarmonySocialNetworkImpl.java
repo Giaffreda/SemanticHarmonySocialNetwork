@@ -868,6 +868,8 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			while(textIO.newBooleanInputReader().withDefaultValue(false).read("\n vuoi aggiungere amici al gruppo?\n")) {
 				friendsadress.add((PeerAddress) fList.get(textIO.newIntInputReader().withDefaultValue(0).read("/n n friends"))[1]);
 				}*/
+			if(fList.size()<friends.size())
+				return false;
 			System.out.println("vuoi conoscere la lista di amici");
 			for(int i=0;i<friends.size();i++) {
 				//System.out.println(fList.get(friends.get(i))[0]+" "+(nickFriends.get(i)));
@@ -1287,7 +1289,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 			return new ArrayList<String>();
 		}
-	  public List<String> getQuestion() {
+	  public List<String> getUserProfileQuestions2() {
 		  FutureGet futureGet = _dht.get(Number160.createHash("question")).start();
 	        futureGet.awaitUninterruptibly();
 	        App test;
