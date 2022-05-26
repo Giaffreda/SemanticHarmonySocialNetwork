@@ -28,3 +28,20 @@ L'utente può visualizzare la lista degli amici, e anche i vari gruppi
 <h3>Classe user </h3>
 Tra il main e la dht si frappone la classe User che gestisce i vari dati in input e chiama le funzione della dht.
 Tra le varie operazioni ricava le domande dalla dht con il metodo <b> getUserProfileQuestions()</b> della dht e le pone all'utente. Dopo aver risposto utilizza il metodo <b> createAuserProfileKey</b>  per generare la chiave che viene utilizzata per la join. Queste ioerazioni sono automatiche quando l'utente entra nel sistema, defferentemente da quelle del menu che vengono chiamate secondo richieste di quest'ultimo. La classe user richiede l'input e fornisce i dati per le opreazione della dht
+<h2>test di unità</h2>
+I test sono effettuati con junit, la classe che effettua i test è denominata "app test", che si trova all'interno del package "Social.LucaGiaffreda", all'interno della cartella "src/test/java"
+I test effettuati sono 9 essi vengono effettuati in successione uno dopo l'altro. L'orine è deciso dal tag inserito sopra al metodo. I test sono:
+<h3><pre><code>testCaseGeneratePeers()</h3></pre></code>
+questo test genera 4 peer, con i nomi gli id e gli indirizzi. questo test viene effettuato prima di tutti gli altri
+<h3><pre><code>testCaseConnect()</h3></pre></code>
+In qeusto test vengono testate le operazioni "join", ogni peer genera la propria chiave, ed effettua la join. In automatico vengono create le amicizia, in seguito viene testato se le amicizie generate sono corrette 
+<h3><pre><code>testCaseSend()</h3></pre></code>
+in questo caso vengono inviati i messaggi, vengono inviati 3 messaggi. mentre i primi due arravano a destinazione il terzo nnon viene inviato, siccome viene richiesto un amico non presente nella lista
+<h3><pre><code>testCaseGroupChat()</h3></pre></code>
+In questo test viene generata una chat di gruppo, che però ha un amico insesitente quindi non viene generata. Viene eliminato l'amico inesistente e viene generata la chat di gruppo infine viene inviato un messaggio alla chat.
+<h3><pre><code>testCaseChangekey()</h3></pre></code>
+<h3><pre><code>testCaseChangeExit()</h3></pre></code>
+<h3><pre><code>testCaseGetQuestion()</h3></pre></code>
+<h3><pre><code>testCaseAddSpam()</h3></pre></code>
+<h3><pre><code>testCaseSeeSpamMessages()</h3></pre></code>
+<h3><pre><code>testCaseRemoveSpam()</h3></pre></code>
