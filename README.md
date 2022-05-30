@@ -1,5 +1,11 @@
 <h1> Architetture distribuite per il Cloud</h1>
 <h2> Semantic Harmony Social Network </h2>
+Stringa originale= lucagiaffreda-01 <br/>
+Stringa md5=28FCBAFED18FDE95F3F5296791D86B05<br/>
+Homework= Semantic Harmony Social Network
+<h3> Traccia</h3>
+Progettare e sviluppare un social network basato sugli interessi dell'utente che sfrutti una rete P2P. Il sistema raccoglie i profili degli utenti e crea automaticamente amicizie secondo una strategia di abbinamento. Gli utenti possono vedere i loro amici nel tempo e vengono automaticamente informati quando un utente entra nel social network e diventa un nuovo potenziale amico. Il sistema definisce una serie di domande, ad esempio, se all'utente piace o meno una serie di foto, una serie di hashtag o, più accurato, come Big Five Personality Test. A questo punto, il sistema può calcolare il punteggio dell'utente in base alle risposte. Questo punteggio è elaborato da una strategia di abbinamento che scopre automaticamente gli amici. Si consideri, ad esempio, un vettore di risposte binarie; un processo di corrispondenza dovrebbe essere la differenza di 0 e 1, o la distanza di Hamming e così via. Il sistema consente agli utenti di vedere le domande del social network, creare un punteggio del profilo in base alla risposta, unirsi alla rete utilizzando un nickname ed eventualmente vedere tutti gli amici degli utenti.
+
 <h3> Soluzione proposta</h3>
 Per costruire un immagine del Semantic harmony social network <pre><code>docker build --no-cache -t socialNetwork .</pre></code> dopo "-t" invece di socialNetwork si può usare qualsiasi nome generico.
 Dopo aver creato l'immagine sarà possibile creare i container per creare il primo container va inserito il codice <pre><code> docker run -i -name MASTER-PEER -e ADRESS='127.0.0.1' -e ID=0 socialNetwork</pre></code> dando per scontato che sia quello il nome utilizzato
@@ -46,7 +52,8 @@ In questo test un peer esce dalla rete. Un altro peer controlla la propria lista
 <h3><pre><code>testCaseGetQuestion()</h3></pre></code>
 In questo test vengono richieste le domande e si controlla se esse siano quelle corrette
 <h3><pre><code>testCaseAddSpam()</h3></pre></code>
-In questo test si inserisce un amico nella lista degli spam e si controlla se la lista è corretta
-<h3><pre><code>testCaseSeeSpamMessages()</h3></pre></code>
+In questo test si inserisce un amico nella lista degli spam e si controlla se la lista è stato inserito correttamente nella lista
+<h3><pre><code>testCaseCreateAuserProfileKey()</h3></pre></code>
+Viene testato la creazione della chiave,in primo luogo si generano due stringhe che sono una chiave corretta e una sbagliata, in seguito si crea l'input per la funzione createUserProfileKey. Viene chiamata la funzione prima su un arrayList e poi su un altro in modo da generare le due chiavi. Si effettua il confronto tra le chiavi e le stringhe generate la prima risulta uguale e la seconda invece no. Inseguito si corregge la seconda e si rieffettua il controllo dove questa volta il risultato del confronto da che le due stringhe sono uguali
 <h3><pre><code>testCaseRemoveSpam()</h3></pre></code>
-In questo test si rimuove un amico nella lista degli spam e si controlla se la lista è corretta
+In questo test si rimuove un amico nella lista degli spam e si controlla se la lista è corretta, cioè se non è più presente nella stessa.
