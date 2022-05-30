@@ -17,7 +17,7 @@ private String profile_key;
 private List <Object[]> friendsList;
 private int Id;
 private SemanticHarmonySocialNetworkImpl connector;
-private List <App> spamMessages;
+private List <Message> spamMessages;
 public User(String nickname,int id, String adress) {
 	this.nickname = nickname;
 	
@@ -41,9 +41,9 @@ public User(String nickname,int id, String adress) {
  				;
  					
  					
- 						App a = (App) obj;
+ 						Message a = (Message) obj;
  						try {
- 						if(a.getMytype()==App.type.friends) {
+ 						if(a.getMytype()==Message.type.friends) {
  						//if(hammingDistance(a.getText(), profile_key)<2) {
  							
 							//Object newFriends[]= {a.getNickname(),sender};
@@ -54,7 +54,10 @@ public User(String nickname,int id, String adress) {
  			 					//terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"con indirizzo"+a.getAdress()+"sender ="+sender+"\n\n");
 								
 							//System.out.println("\n"+peerid+" risultato getfreinds"+connector.getFriends5c(nickname, a.getNickname(),sender)+"\n\n");
-							connector.getFriends5c(nickname, a.getNickname(),sender);
+ 							if(a.getText().equals("exit"))
+ 								connector.removeFriends(a.getNickname(), sender);
+ 							else
+ 								connector.getFriends5c(nickname, a.getNickname(),sender);
  			 					//friendsList.add(newFriends);
  			 					/*}else {
  			 						terminal.printf("\n gia' amici"+"\n\n");
@@ -76,7 +79,7 @@ public User(String nickname,int id, String adress) {
  			 						System.out.println("\n"+peerid+" amicizia non corrisposta"+a+"\n\n");
  			 				}*/
 						
-						}else if(a.getMytype()==App.type.chat){
+						}else if(a.getMytype()==Message.type.chat){
 							ArrayList<String> spam=(ArrayList<String>) connector.getSpamList();
 							for (String s:spam )
 								System.out.println(" in spam list ="+s);
@@ -87,7 +90,7 @@ public User(String nickname,int id, String adress) {
 								terminal.printf("\n"+peerid+"] (Direct Message Received by "+a.getNickname()+" ) message =="+a.getText()+"\n\n");
 								
 							}
-							}else if(a.getMytype()==App.type.multichat){
+							}else if(a.getMytype()==Message.type.multichat){
 								
 								//System.out.println("\n"+peerid+"] (Direct Message Received) message"+connector.getmultichat(nickname, a.getNickname())+"\n\n");
 								connector.getmultichat(nickname, a.getNickname());
@@ -108,14 +111,14 @@ public User(String nickname,int id, String adress) {
  			}
 		}
 		connector =new SemanticHarmonySocialNetworkImpl(id, adress, new MessageListenerImpl(id));
-		spamMessages=new ArrayList<App>();
+		spamMessages=new ArrayList<Message>();
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 }
 public boolean connect() {
-	List<String>question = connector.getUserProfileQuestions2();
+	List<String>question = connector.getUserProfileQuestions();
 	List <Integer> answer=new ArrayList<Integer>();
 	TextIO textIO = TextIoFactory.getTextIO();
 	for(int i=0;i<question.size();i++){
@@ -197,7 +200,7 @@ public boolean groupChat2() {
 	return connector.groupChat2(name,peerfreinds,nickfreinds);
 }
 public boolean changeKey() {
-	List<String> question= connector.getUserProfileQuestions2();
+	List<String> question= connector.getUserProfileQuestions();
 		TextIO textIO = TextIoFactory.getTextIO();
 
 	List <Integer> answer =new ArrayList<>();
@@ -314,16 +317,16 @@ public boolean exit() {
 	return connector.leaveNetwork(nickname);
 }
 public void getSpamMessages() {
-	/*List <App> appoggio=spamMessages;
+	/*List <Message> Messageoggio=spamMessages;
 	spamMessages.clear();
-	return appoggio;*/
+	return Messageoggio;*/
 	while (spamMessages.size()>0) {
 		System.out.println("Messaggio spam =" +spamMessages.get(0));
 		spamMessages.remove(0);
 		
 	}
 }
-public void addSpamMessages(App spamMessages) {
+public void addSpamMessages(Message spamMessages) {
 	if(this.spamMessages.size()>=10)
 		this.spamMessages.remove(0);
 	this.spamMessages.add( spamMessages);

@@ -7,7 +7,7 @@ import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 import org.junit.jupiter.api.*;
 import Social.LucaGiaffreda.User;
-import Social.LucaGiaffreda.App;
+import Social.LucaGiaffreda.Message;
 import Social.LucaGiaffreda.SemanticHarmonySocialNetworkImpl;
 
 import java.io.ByteArrayInputStream;
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test for simple App.
+ * Unit test for simple Message.
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AppTest 
@@ -227,10 +227,11 @@ public class AppTest
  	
  		ArrayList<String> questions=new ArrayList<String>();
 		        		questions.add("Ho una parola gentile per tutti");
-		       		 questions.add("Ho una parola gentile per tutti");
-		       		 questions.add("Ho una parola gentile per tutti");
-		       		 questions.add("Ho una parola gentile per tutti");
-		assertEquals(questions, peer0.getConnector().getUserProfileQuestions2());
+		       		 questions.add("Sono sempre preparato");
+		       		 questions.add("Mi sento a mio agio con le persone");
+		       		questions.add("Evito di assumermi molte responsabilità");
+		       		questions.add("Faccio amicizia facilmente");
+		assertEquals(questions, peer0.getConnector().getUserProfileQuestions());
  		/*TimeUnit.SECONDS.sleep(1);
  		ArrayList<String> expectedfriends= new ArrayList<String>();
  		expectedfriends.add("gruppo");
@@ -238,8 +239,33 @@ public class AppTest
  		for (String b:a)
  			System.out.print("aaaa"+b);
  		assertArrayEquals(expectedfriends.toArray(), peer1.getFriendsList().toArray());*/
-		assertArrayEquals(questions.toArray(), peer1.getConnector().getUserProfileQuestions2().toArray());
+		assertArrayEquals(questions.toArray(), peer1.getConnector().getUserProfileQuestions().toArray());
  	}
+	@Test
+    @Order (9)
+	 void testCaseCreateAuserProfileKey() throws InterruptedException {
+		 	
+	 		ArrayList<Integer> answer0= new ArrayList<Integer>();
+	 		answer0.addAll(Arrays.asList(0,3,0,2,0));
+	 		ArrayList<Integer> answer1= new ArrayList<Integer>();
+	 		answer1.addAll(Arrays.asList(1,1,0,3,2));
+	 		String key0,key1;
+	 		key0="000111000011000";
+	 		key1="011001010111011";
+	 		/*TimeUnit.SECONDS.sleep(1);
+	 		ArrayList<String> expectedfriends= new ArrayList<String>();
+	 		expectedfriends.add("gruppo");
+	 		ArrayList<String> a= (ArrayList<String>) peer1.getFriendsList();
+	 		for (String b:a)
+	 			System.out.print("aaaa"+b);
+	 		assertArrayEquals(expectedfriends.toArray(), peer1.getFriendsList().toArray());*/
+			assertEquals(key0, peer0.getConnector().createAuserProfileKey(answer0));
+			
+			assertNotEquals(key1, peer1.getConnector().createAuserProfileKey(answer1));
+			key1="001001000111011";
+			
+			assertEquals(key1, peer1.getConnector().createAuserProfileKey(answer1));
+	 	}
 	@Test
     @Order (7)
     //@Disabled
@@ -279,7 +305,7 @@ public class AppTest
  		assertArrayEquals(expectedfriendsSpam.toArray(), peer0.getConnector().getSpamList().toArray());
  	}
 	@Test
-    @Order (9)
+    @Order (10)
     @Disabled
     void testCaseSeeSpamMessages() throws InterruptedException, IOException {
  	
