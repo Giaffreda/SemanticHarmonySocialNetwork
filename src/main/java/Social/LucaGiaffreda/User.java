@@ -139,6 +139,7 @@ public boolean message() {
 	}*/
 	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
 	ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
+	if(friends!=null)
 	while (i<friends.size()) {
 		System.out.println("friends n "+i+" "+friends.get(i));
 		i++;
@@ -218,36 +219,42 @@ public boolean addSpam() throws IOException {
 	ArrayList<String> nickfreinds=new ArrayList<String>();
 	TextIO textIO = TextIoFactory.getTextIO();
 	int i=0;
+	ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
 	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
-		ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
+		
+		if(friends!=null)
 		while (i<friends.size()) {
 			System.out.println("friends n "+i+" "+friends.get(i));
 			i++;
 		}
+	}
+	if(friends!=null)
 		while(textIO.newBooleanInputReader().withDefaultValue(false).read("\n vuoi aggiungere amici agli spam?\n")) {
 			int choise=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
 			nickfreinds.add(friends.get(choise));
 			}
 		
-		}
+		
 	return connector.addSpam(nickfreinds);
 }
 public boolean removeSpam() throws IOException {
 	ArrayList<String> nickfreinds=new ArrayList<String>();
 	TextIO textIO = TextIoFactory.getTextIO();
 	int i=0;
+	ArrayList<String>friends= (ArrayList<String>) connector.getSpamList();
 	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici in spam")) {
-		ArrayList<String>friends= (ArrayList<String>) connector.getSpamList();
-		if(friends!=null)
+		if(friends!=null) {
 		while (i<friends.size()) {
 			System.out.println("friends n "+i+" "+friends.get(i));
 			i++;
 		}
+		}
+		if(friends!=null)
 		while(textIO.newBooleanInputReader().withDefaultValue(false).read("\n vuoi rimuovere amici agli spam?\n")) {
 			int choise=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
 			nickfreinds.add(friends.get(choise));
 			}
-		
+	
 		}
 	return connector.removeSpam(nickfreinds);
 }
