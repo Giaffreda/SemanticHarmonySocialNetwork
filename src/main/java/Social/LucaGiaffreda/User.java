@@ -82,12 +82,12 @@ public User(String nickname,int id, String adress) {
 						}else if(a.getMytype()==Message.type.chat){
 							ArrayList<String> spam=(ArrayList<String>) connector.getSpamList();
 							for (String s:spam )
-								System.out.println(" in spam list ="+s);
+								//System.out.println(" in spam list ="+s);
 							if(spam.contains(a.getNickname())) {
 								addSpamMessages(a);
 								
 							}else {
-								terminal.printf("\n"+peerid+"] (Direct Message Received by "+a.getNickname()+" ) message =="+a.getText()+"\n\n");
+								terminal.printf("\n"+peerid+"] (Message Received by "+a.getNickname()+" ) message = "+a.getText()+"\n\n");
 								
 							}
 							}else if(a.getMytype()==Message.type.multichat){
@@ -200,10 +200,12 @@ public boolean groupChat2() {
 	return connector.groupChat2(name,peerfreinds,nickfreinds);
 }
 public boolean changeKey() {
-	List<String> question= connector.getUserProfileQuestions();
+	List<String> question= new ArrayList<String>();
+	question=connector.getUserProfileQuestions();
 		TextIO textIO = TextIoFactory.getTextIO();
 
 	List <Integer> answer =new ArrayList<>();
+	
 	for (int i=0; i<question.size();i++) {
 		answer.add(textIO.newIntInputReader().withMaxVal(3).withMinVal(0).read(question.get(i)));
 	}

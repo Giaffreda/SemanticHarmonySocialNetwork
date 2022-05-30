@@ -1251,7 +1251,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					 }
 					}).awaitListenersUninterruptibly();
 				
-				if (futureGet.isSuccess()) {
+				if (futureGet.isSuccess()&&!futureGet.isEmpty()) {
 					ArrayList<String> oldList=(ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
 					//ArrayList<Object[]> oldList=_dht.get(Number160.createHash("friendsList")).;
 					/* FuturePut future = _dht.put(Number160.createHash(profile))
