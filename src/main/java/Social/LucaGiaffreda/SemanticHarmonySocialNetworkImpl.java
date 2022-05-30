@@ -115,6 +115,16 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+		        	}else {
+		        		ArrayList<String> questions;
+						try {
+							questions = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
+							return questions;
+						} catch (ClassNotFoundException | IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		        		
 		        	}
 		        }
 		        return null;
