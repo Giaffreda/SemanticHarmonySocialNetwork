@@ -62,7 +62,17 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	@Override
 	public List<String> getUserProfileQuestions() {
 		  FutureGet futureGet = _dht.get(Number160.createHash("question")).start();
-	        futureGet.awaitUninterruptibly();
+	        futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+				 @Override
+				 public void operationComplete(FutureGet future) throws Exception {
+				  if(future.isSuccess()) { // this flag indicates if the future was successful
+				  // System.out.println("success");
+				   
+				  } else {
+				  // System.out.println("failure");
+				  }
+				 }
+				}).awaitListenersUninterruptibly();
 	        Message test;
 	        try {
 		        if (futureGet.isSuccess()) {
