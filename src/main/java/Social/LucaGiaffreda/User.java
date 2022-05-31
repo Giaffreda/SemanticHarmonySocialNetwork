@@ -44,45 +44,15 @@ public User(String nickname,int id, String adress) {
  						Message a = (Message) obj;
  						try {
  						if(a.getMytype()==Message.type.friends) {
- 						//if(hammingDistance(a.getText(), profile_key)<2) {
- 							
-							//Object newFriends[]= {a.getNickname(),sender};
-							//ArrayList<String>Friend=(ArrayList<String>) connector.getFriends();
- 			 					//if(!friendsList.contains(newFriends))
- 			 					//{
-								//if(!Friend.contains(a.getNickname())) {
- 			 					//terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"con indirizzo"+a.getAdress()+"sender ="+sender+"\n\n");
-								
-							//System.out.println("\n"+peerid+" risultato getfreinds"+connector.getFriends5c(nickname, a.getNickname(),sender)+"\n\n");
  							if(a.getText().equals("exit"))
  								connector.removeFriends(a.getNickname(), sender);
  							else
  								connector.getFriends5c(nickname, a.getNickname(),sender);
- 			 					//friendsList.add(newFriends);
- 			 					/*}else {
- 			 						terminal.printf("\n gia' amici"+"\n\n");
- 			 						connector.reFriends(sender, nickname);
- 			 						
- 			 					}*/
- 			 				/*}else {
- 			 					
- 			 					//Object newFriends[]= {a.getNickname(),sender};
- 			 					//for (int i=0;i<friendsList.size();i++) {
- 			 					ArrayList<String>Friend=(ArrayList<String>) connector.getFriends();
- 			 						if (Friend.contains(a.getNickname())) {
- 			 							terminal.printf("\n"+peerid+" rimosso amico con i dati che ha i dati"+a+"\n\n");
- 			 	 			 			
- 		 			 					connector.removeFriends(a.getNickname(), sender, Friend.indexOf(a.getNickname()));
- 			 						}
- 			 					//}
  			 				
- 			 						System.out.println("\n"+peerid+" amicizia non corrisposta"+a+"\n\n");
- 			 				}*/
 						
 						}else if(a.getMytype()==Message.type.chat){
 							ArrayList<String> spam=(ArrayList<String>) connector.getSpamList();
 							for (String s:spam )
-								//System.out.println(" in spam list ="+s);
 							if(spam.contains(a.getNickname())) {
 								addSpamMessages(a);
 								
@@ -92,15 +62,10 @@ public User(String nickname,int id, String adress) {
 							}
 							}else if(a.getMytype()==Message.type.multichat){
 								
-								//System.out.println("\n"+peerid+"] (Direct Message Received) message"+connector.getmultichat(nickname, a.getNickname())+"\n\n");
 								connector.getmultichat(nickname, a.getNickname());
 								} else {
-									//System.out.println("\n"+peerid+" aggiunge un nuovo amico che ha i dati"+a+connector.addFriends(a.getNickname(), sender)+" con risultato"+"\n\n");
 									connector.addFriends(a.getNickname(), sender);
-									//	Object newFriends[]= {a.getNickname(),sender};
-								//connector.addFriends(a.getNickname(), sender);
-								//friendsList.add(newFriends);
-								}
+									}
  						
  			}
  			 catch (IOException e) {
@@ -113,7 +78,6 @@ public User(String nickname,int id, String adress) {
 		connector =new SemanticHarmonySocialNetworkImpl(id, adress, new MessageListenerImpl(id));
 		spamMessages=new ArrayList<Message>();
 	} catch (Exception e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 }
@@ -126,17 +90,13 @@ public boolean connect() {
 	}
 	setProfile_key( connector.createAuserProfileKey(answer));
 	return connector.join(profile_key, nickname);
-	//return false;
+
 }
 public boolean message() {
 	TextIO textIO = TextIoFactory.getTextIO();
     TextTerminal terminal = textIO.getTextTerminal();
-	//String destination=textIO.newStringInputReader().withDefaultValue("default").read("destination");
-    //int destination=textIO.newIntInputReader().withDefaultValue(0).read("id destinazione");
 	int i=0;
-	/*while(!destination.equals(friendList.get(i)[0])) {
-		i++;
-	}*/
+	
 	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
 	ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
 	if(friends!=null)
@@ -144,45 +104,22 @@ public boolean message() {
 		System.out.println("friends n "+i+" "+friends.get(i));
 		i++;
 	}
-	/*int destination=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
-	String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
-	return connector.sendMessage3(destination, nickname, message);*/
 	}
 	int destination=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
 	String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
-	//String nick=textIO.newStringInputReader().withDefaultValue("default").read("nick");
 	return connector.sendMessage3(destination, nickname, message);
-	//return connector.sendMessagebyid(destination, nickname, message);
-}
+	}
 public boolean groupChat() {
 	ArrayList<Integer> peerfreinds=new ArrayList<Integer>();
-	//System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAA friends"+friendsList.size());
-	/*for (int i=0;i<friendsList.size();i++) {
-		System.out.println("peer ="+friendsList.get(i)[0]+" peeradress" +friendsList.get(i)[1]);
-		peerfreinds.add((PeerAddress) friendsList.get(i)[1]);
-	}*/	
+		
 	TextIO textIO = TextIoFactory.getTextIO();
-	/*int i=0;
-	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
-		ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
-		while (i<friends.size()) {
-			System.out.println("friends n "+i+" "+friends.get(i));
-			i++;
-		}
-		while(textIO.newBooleanInputReader().withDefaultValue(false).read("\n vuoi aggiungere amici al gruppo?\n")) {
-			peerfreinds.add(textIO.newIntInputReader().withDefaultValue(0).read("/n n friends"));
-			}
-		}*/
+	
 	return connector.groupChat();
 }
 public boolean groupChat2() {
 	ArrayList<Integer> peerfreinds=new ArrayList<Integer>();
 	ArrayList<String> nickfreinds=new ArrayList<String>();
-	//System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAA friends"+friendsList.size());
-	/*for (int i=0;i<friendsList.size();i++) {
-		System.out.println("peer ="+friendsList.get(i)[0]+" peeradress" +friendsList.get(i)[1]);
-		peerfreinds.add((PeerAddress) friendsList.get(i)[1]);
-	}*/	
+		
 	TextIO textIO = TextIoFactory.getTextIO();
 	int i=0;
 	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
@@ -212,7 +149,6 @@ public boolean changeKey() {
 	}
 	String key= connector.createAuserProfileKey(answer);
 	
-	//connector.searchFriends2b("test", nickname, key);
 	return connector.changeKey(nickname, key);
 }
 public boolean addSpam() throws IOException {
@@ -292,7 +228,6 @@ public void setId(int id) {
 public List getFriendsList() {
 	TextIO textIO = TextIoFactory.getTextIO();
 	int i=0;
-	//if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici")) {
 		ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
 		while (i<friends.size()) {
 			System.out.println("friends n "+i+" "+friends.get(i));
@@ -310,7 +245,6 @@ public SemanticHarmonySocialNetworkImpl getConnector() {
 public int hammingDistance2(String a, String b) {
 	int count=0;
 	
-		//System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA"+a.length()+" BBBBBBBBB"+ b.length());
 	if (a == null || b == null) {
 		System.out.println("error");
         return 0;
@@ -319,16 +253,12 @@ public int hammingDistance2(String a, String b) {
 		if(a.charAt(i)!=b.charAt(i))
 			count++;
 	}
-	//System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBB"+count);
 	return count;
 }
 public boolean exit() {
 	return connector.leaveNetwork(nickname);
 }
 public void getSpamMessages() {
-	/*List <Message> Messageoggio=spamMessages;
-	spamMessages.clear();
-	return Messageoggio;*/
 	while (spamMessages.size()>0) {
 		System.out.println("Messaggio spam =" +spamMessages.get(0));
 		spamMessages.remove(0);
