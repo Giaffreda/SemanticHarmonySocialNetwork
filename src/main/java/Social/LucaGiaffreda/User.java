@@ -47,12 +47,12 @@ public User(String nickname,int id, String adress) {
  							if(a.getText().equals("exit"))
  								connector.removeFriends(a.getNickname(), sender);
  							else
- 								connector.getFriends5c(nickname, a.getNickname(),sender);
+ 								connector.setFriends(nickname, a.getNickname(),sender);
  			 				
 						
 						}else if(a.getMytype()==Message.type.chat){
 							ArrayList<String> spam=(ArrayList<String>) connector.getSpamList();
-							for (String s:spam )
+							
 							if(spam.contains(a.getNickname())) {
 								addSpamMessages(a);
 								
@@ -86,7 +86,7 @@ public boolean connect() {
 	List <Integer> answer=new ArrayList<Integer>();
 	TextIO textIO = TextIoFactory.getTextIO();
 	for(int i=0;i<question.size();i++){
-	answer.add( textIO.newIntInputReader().withMaxVal(3).withMinVal(0).read(question.get(i)));
+	answer.add( textIO.newIntInputReader().withMaxVal(3).withMinVal(0).read("Valuta da 0 a 3 "+question.get(i)));
 	}
 	setProfile_key( connector.createAuserProfileKey(answer));
 	return connector.join(profile_key, nickname);
@@ -107,15 +107,9 @@ public boolean message() {
 	}
 	int destination=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
 	String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
-	return connector.sendMessage3(destination, nickname, message);
+	return connector.sendMessage(destination, nickname, message);
 	}
-public boolean groupChat() {
-	ArrayList<Integer> peerfreinds=new ArrayList<Integer>();
-		
-	TextIO textIO = TextIoFactory.getTextIO();
-	
-	return connector.groupChat();
-}
+
 public boolean groupChat2() {
 	ArrayList<Integer> peerfreinds=new ArrayList<Integer>();
 	ArrayList<String> nickfreinds=new ArrayList<String>();
@@ -145,7 +139,7 @@ public boolean changeKey() {
 	List <Integer> answer =new ArrayList<>();
 	
 	for (int i=0; i<question.size();i++) {
-		answer.add(textIO.newIntInputReader().withMaxVal(3).withMinVal(0).read(question.get(i)));
+		answer.add(textIO.newIntInputReader().withMaxVal(3).withMinVal(0).read("Valuta da 0 a 3 "+question.get(i)));
 	}
 	String key= connector.createAuserProfileKey(answer);
 	
@@ -242,19 +236,7 @@ public void setFriendsList(List <Object[]> freindsList) {
 public SemanticHarmonySocialNetworkImpl getConnector() {
 	return connector;
 }
-public int hammingDistance2(String a, String b) {
-	int count=0;
-	
-	if (a == null || b == null) {
-		System.out.println("error");
-        return 0;
-	}
-	for (int i=0; i<a.length();i++) {
-		if(a.charAt(i)!=b.charAt(i))
-			count++;
-	}
-	return count;
-}
+
 public boolean exit() {
 	return connector.leaveNetwork(nickname);
 }

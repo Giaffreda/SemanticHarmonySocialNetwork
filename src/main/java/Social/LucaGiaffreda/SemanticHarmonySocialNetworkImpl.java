@@ -160,7 +160,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			oldList.add(me);
 			_dht.put(Number160.createHash("userList"))
             .data(new Data(oldList)).start().awaitListenersUninterruptibly();
-			return searchFriends2c( _nick_name, _profile_key);
+			return searchFriends( _nick_name, _profile_key);
 		} catch (ClassNotFoundException e) {
 			
 			e.printStackTrace();
@@ -226,7 +226,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		return count;
 	}
 
-	  public boolean getFriends5c(String name,String profile, PeerAddress adress) throws IOException {
+	  public boolean setFriends(String name,String profile, PeerAddress adress) throws IOException {
 		  Message test;
 		  try {
 				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
@@ -354,7 +354,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 			return false;
 	  }
-	  public boolean searchFriends2c( String nickName, String profilekey) throws IOException {
+	  public boolean searchFriends( String nickName, String profilekey) throws IOException {
 	    	FutureGet futureGet = _dht.get(Number160.createHash("userList")).start();
 			
 	    	futureGet.awaitUninterruptibly();
@@ -417,54 +417,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 			return false;
 		}
-	  public boolean groupChat() {
-			
-			
-			 	FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
-			 	futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-			 @Override
-			 public void operationComplete(FutureGet future) throws Exception {
-			
-			 }
-			}).awaitListenersUninterruptibly();
-		 
-		if(futureGet.isSuccess()) {
-		try {
-			ArrayList<Object[]> fList=(ArrayList<Object[]>) futureGet.dataMap().values().iterator().next().object();
-			ArrayList<PeerAddress> friendsadress =new ArrayList<PeerAddress>();
-			TextIO textIO = TextIoFactory.getTextIO();
-			
-			Scanner keyboard = new Scanner(System.in);
-			
-			
-			System.out.println("vuoi conoscere la lista di amici");
-			if(keyboard.nextBoolean()) {
-			
-				textIO.newBooleanInputReader().withDefaultValue(keyboard.nextBoolean());
-				for (int i=0;i<fList.size();i++) {
-					System.out.println("friends n "+i+" "+fList.get(i)[0]);
-				}
-				}
-			System.out.println("vuoi conoscere la lista di amici");
-			while(keyboard.nextBoolean()) {
-				System.out.println("friends");
-				friendsadress.add((PeerAddress) fList.get(keyboard.nextInt())[1]);
-				System.out.println("vuoi conoscere la lista di amici");
-				}
-			return createGroupChat("gruppo", friendsadress);
-		} catch (ClassNotFoundException e) {
-			
-			e.printStackTrace();
-		} catch (IOException e) {
-		
-			e.printStackTrace();
-		}
-		}else {
-			 System.out.println("non esiste");
-			 return false;
-		}
-		return false;
-		}
+	  
 	  public boolean groupChat2(String name, ArrayList<Integer> friends,ArrayList<String> nickFriends) {
 			
 			
@@ -506,7 +459,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		return false;
 		}
 	  
-	  public boolean sendMessage3(int destination, String source,Object message) {
+	  public boolean sendMessage(int destination, String source,Object message) {
 
 	    	FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
 	        futureGet.awaitUninterruptibly();
@@ -523,14 +476,12 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			
 					futureDirect.awaitListenersUninterruptibly();
 					}else {
-						System.out.println("group messag pt 1");
 						FutureGet futureGet2 = _dht.get(Number160.createHash((String)friends.get(destination)[0])).start();
 				        futureGet2.awaitUninterruptibly();
 				        if (futureGet2.isSuccess()) {
 				        	test.setNickname((String) friends.get(destination)[0]);
 				        	test.setText(source+ " :"+test.getText());
-				        	System.out.println("group messag pt 2");
-				        HashSet<PeerAddress> peers_on_topic;
+				            HashSet<PeerAddress> peers_on_topic;
 						peers_on_topic = (HashSet<PeerAddress>) futureGet2.dataMap().values().iterator().next().object();
 			        		for(PeerAddress peer:peers_on_topic)
 						{
@@ -601,7 +552,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					}
 					
 					}
-			return searchFriends2c( nickName, key);
+			return searchFriends( nickName, key);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

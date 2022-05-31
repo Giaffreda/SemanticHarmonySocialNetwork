@@ -19,7 +19,7 @@ public class Centrale {
 	private static int id;
 
 public static void main (String[] args)throws NumberFormatException, Exception {
-	 System.out.println("twst");
+	// System.out.println("twst");
 		 
 	 //aggiunte
 	 Centrale example=new Centrale();
@@ -51,7 +51,7 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 		case 1:
 			ArrayList<String> friendsList=(ArrayList<String>) user.getFriendsList();
 			for(int i=0; i<friendsList.size();i++)
-				 System.out.println("twst"+friendsList.get(i));
+				 System.out.println(friendsList.get(i));
 			user.exit();
 				System.exit(0);
 				break;

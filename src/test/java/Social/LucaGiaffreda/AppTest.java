@@ -72,7 +72,6 @@ public class AppTest
 	 		ArrayList<String> test= new ArrayList<String>();
 	 		test=
 	 				(ArrayList<String>) peer0.getFriendsList();
-	 		System.out.println(peer3.getNickname()+peer3.getId());
 	 		for (int i=0;i<test.size();i++) {
 	 		assertArrayEquals(test.toArray(), peer0.getFriendsList().toArray());
 	 		
@@ -83,9 +82,9 @@ public class AppTest
 	    @Order (2)
 	    //@Disabled
 	    void testCaseSend() throws InterruptedException {
-	 		assertTrue(peer0.getConnector().sendMessage3(0, peer0.getNickname(), "test message"));
-	 		assertTrue(peer1.getConnector().sendMessage3(1, peer1.getNickname(), "test message2"));
-	 		assertFalse(peer2.getConnector().sendMessage3(3, peer2.getNickname(), "test message2"));
+	 		assertTrue(peer0.getConnector().sendMessage(0, peer0.getNickname(), "test message"));
+	 		assertTrue(peer1.getConnector().sendMessage(1, peer1.getNickname(), "test message2"));
+	 		assertFalse(peer2.getConnector().sendMessage(3, peer2.getNickname(), "test message2"));
 	 	}
 	 	@Test
 	    @Order (3)
@@ -104,7 +103,7 @@ public class AppTest
 	 		nickFriends.remove("not friends");
 	 		assertTrue(peer1.getConnector().groupChat2("gruppo",numberfriends, nickFriends));
 	 		
-	 		assertTrue(peer1.getConnector().sendMessage3(2, peer0.getNickname(), "test group message"));
+	 		assertTrue(peer1.getConnector().sendMessage(2, peer0.getNickname(), "test group message"));
 	 	}
 	 	@Test
 	    @Order (4)
@@ -114,22 +113,19 @@ public class AppTest
 	 		ArrayList<Integer>answer0=new ArrayList<Integer>();
 	 		answer0.addAll(Arrays.asList(0,3,3,3,3));
 	 		
-	 		System.out.println("profilekey 1: "+peer1.getProfile_key());
 	 		peer0.setProfile_key(peer0.getConnector().createAuserProfileKey(answer0));
 	 		assertTrue(peer0.getConnector().changeKey(peer0.getNickname(), peer0.getProfile_key()));
 	 		ArrayList<String> expectedfriends= new ArrayList<String>();
 	 		expectedfriends.add(peer3.getNickname());
 	 		TimeUnit.SECONDS.sleep(1);
 	 		ArrayList<String> c= (ArrayList<String>) peer0.getFriendsList();
-	 		for (String d:c)
-	 			System.out.print("aaaa"+d);
+	 		
 	 		assertArrayEquals(expectedfriends.toArray(), peer0.getFriendsList().toArray());
 	 		expectedfriends.remove(peer3.getNickname());
 	 		expectedfriends.add(peer2.getNickname());
 	 		expectedfriends.add("gruppo");
 	 		ArrayList<String> a= (ArrayList<String>) peer1.getFriendsList();
-	 		for (String b:a)
-	 			System.out.print("aaaa"+b);
+	 		
 	 		assertArrayEquals(expectedfriends.toArray(), peer1.getFriendsList().toArray());
 	 	}
  
@@ -144,8 +140,7 @@ public class AppTest
  		ArrayList<String> expectedfriends= new ArrayList<String>();
  		expectedfriends.add("gruppo");
  		ArrayList<String> a= (ArrayList<String>) peer1.getFriendsList();
- 		for (String b:a)
- 			System.out.print("aaaa"+b);
+ 		
  		assertArrayEquals(expectedfriends.toArray(), peer1.getFriendsList().toArray());
  	}
 	@Test
@@ -191,8 +186,7 @@ public class AppTest
  		ArrayList<String> expectedfriendsSpam= new ArrayList<String>();
  		expectedfriendsSpam.add(peer1.getNickname());
  		ArrayList<String> a= (ArrayList<String>) peer0.getConnector().getSpamList();
- 		for (String b:a)
- 			System.out.print("aaaa"+b);
+ 		
  		assertArrayEquals(expectedfriendsSpam.toArray(), peer0.getConnector().getSpamList().toArray());
  	}
 	@Test
@@ -200,13 +194,12 @@ public class AppTest
     @Disabled
     void testCaseSeeSpamMessages() throws InterruptedException, IOException {
  	
-		assertTrue(peer1.getConnector().sendMessage3(0, peer1.getNickname(), "test message"));
+		assertTrue(peer1.getConnector().sendMessage(0, peer1.getNickname(), "test message"));
  		
  		ArrayList<String> expectedfriendsSpam= new ArrayList<String>();
  		expectedfriendsSpam.add(peer1.getNickname());
  		ArrayList<String> a= (ArrayList<String>) peer0.getConnector().getSpamList();
- 		for (String b:a)
- 			System.out.print("aaaa"+b);
+ 		
  		assertArrayEquals(expectedfriendsSpam.toArray(), peer0.getConnector().getSpamList().toArray());
  	}
 
@@ -225,8 +218,7 @@ public class AppTest
  		ArrayList<String> expectedfriendsSpam= new ArrayList<String>();
  		expectedfriendsSpam.add(peer2.getNickname());
  		ArrayList<String> a= (ArrayList<String>) peer0.getConnector().getSpamList();
- 		for (String b:a)
- 			System.out.print("aaaa"+b);
+ 		
  		assertArrayEquals(expectedfriendsSpam.toArray(), peer0.getConnector().getSpamList().toArray());
  	}
 
