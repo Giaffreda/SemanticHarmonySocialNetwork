@@ -63,7 +63,7 @@ public User(String nickname,int id, String adress) {
 								}
 								}else if(a.getMytype()==Message.type.multichat){
 									
-									connector.getmultichat(nickname, a.getNickname());
+									System.out.println(nickname+connector.getmultichat(nickname, a.getNickname()));
 									} else {
 										System.out.println(nickname+ "PRE add "+ a.getNickname());
 										connector.addFriends(a.getNickname(), a.getSender());

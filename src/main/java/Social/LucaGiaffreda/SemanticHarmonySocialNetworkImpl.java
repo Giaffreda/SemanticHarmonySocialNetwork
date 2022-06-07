@@ -362,14 +362,10 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 					peers_on_topic.add(_dht.peer().peerAddress());
 					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
-					/*for(PeerAddress peer:peers_on_topic){
+					for(PeerAddress peer:peers_on_topic){
+						System.out.println(name+" si è unito alla chat di gruppo");
 						
-						String message=name+"ha accettato";
-						FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(name+" si è unito alla chat di gruppo").start();
-				
-						futureDirect.awaitUninterruptibly();
-						
-					}*/
+					}
 					addFriends(profile, null);
 					return true;
 					
