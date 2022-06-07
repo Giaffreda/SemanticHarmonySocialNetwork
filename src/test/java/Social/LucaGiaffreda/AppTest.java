@@ -43,7 +43,7 @@ public class AppTest
 	 	@Test
 	    @Order (1)
 	    void testCaseConnect() throws InterruptedException {
-	 		ArrayList<Integer> answer0= new ArrayList<Integer>();
+	/*ArrayList<Integer> answer0= new ArrayList<Integer>();
 	 		
 	 		answer0.addAll(Arrays.asList(0,0,0,0,0));
 	 		ArrayList<Integer> answer1= new ArrayList<Integer>();
@@ -51,7 +51,16 @@ public class AppTest
 	 		ArrayList<Integer> answer2= new ArrayList<Integer>();
 	 		answer2.addAll(Arrays.asList(0,0,2,1,3));
 	 		ArrayList<Integer> answer3= new ArrayList<Integer>();
-	 		answer3.addAll(Arrays.asList(1,0,3,3,3));
+	 		answer3.addAll(Arrays.asList(1,0,3,3,3));*/
+	 		 ArrayList<Integer> answer0= new ArrayList<Integer>();
+	 		
+	 		answer0.addAll(Arrays.asList(0,0,0,0,0,0,0));
+	 		ArrayList<Integer> answer1= new ArrayList<Integer>();
+	 		answer1.addAll(Arrays.asList(1,0,0,1,2,3,1));
+	 		ArrayList<Integer> answer2= new ArrayList<Integer>();
+	 		answer2.addAll(Arrays.asList(0,0,2,1,3,1,0));
+	 		ArrayList<Integer> answer3= new ArrayList<Integer>();
+	 		answer3.addAll(Arrays.asList(1,0,3,3,3,0,2));
 	 		String key0,key1,key2,key3;
 	 		key0=peer0.getConnector().createAuserProfileKey(answer0);
 	 		key1=peer1.getConnector().createAuserProfileKey(answer1);
@@ -71,9 +80,9 @@ public class AppTest
 	 		TimeUnit.SECONDS.sleep(2);
 	 		ArrayList<String> test= new ArrayList<String>();
 	 		test=
-	 				(ArrayList<String>) peer0.getFriendsList();
+	 				(ArrayList<String>) peer0.getConnector().getFriends();
 	 		for (int i=0;i<test.size();i++) {
-	 		assertArrayEquals(test.toArray(), peer0.getFriendsList().toArray());
+	 		assertArrayEquals(test.toArray(), peer0.getConnector().getFriends().toArray());
 	 		
 	 		}
 	 		
@@ -85,13 +94,14 @@ public class AppTest
 	 		assertTrue(peer0.getConnector().sendMessage(0, peer0.getNickname(), "test message"));
 	 		assertTrue(peer1.getConnector().sendMessage(1, peer1.getNickname(), "test message2"));
 	 		assertFalse(peer2.getConnector().sendMessage(3, peer2.getNickname(), "test message2"));
+	 		assertTrue(peer2.getConnector().sendMessage(1, peer2.getNickname(), "test message3"));
 	 	}
 	 	@Test
 	    @Order (3)
 	    //@Disabled
 	    void testCaseGroupChat() throws InterruptedException {
 	 		
-	 		ArrayList<String> nickFriends=(ArrayList<String>) peer1.getFriendsList();
+	 		ArrayList<String> nickFriends=(ArrayList<String>) peer1.getConnector().getFriends();
 	 		nickFriends.add("not friends");
 	 		ArrayList<Integer> numberfriends=new ArrayList<Integer>();
 	 		numberfriends.add(0);
@@ -110,23 +120,35 @@ public class AppTest
 	    //@Disabled
 	    void testCaseChangekey() throws InterruptedException {
 	 		
+	 		/*ArrayList<Integer>answer0=new ArrayList<Integer>();
+	 		answer0.addAll(Arrays.asList(0,3,3,2,3));*/
 	 		ArrayList<Integer>answer0=new ArrayList<Integer>();
-	 		answer0.addAll(Arrays.asList(0,3,3,3,3));
-	 		
+	 		answer0.addAll(Arrays.asList(0,3,3,3,3,2,2));
 	 		peer0.setProfile_key(peer0.getConnector().createAuserProfileKey(answer0));
 	 		assertTrue(peer0.getConnector().changeKey(peer0.getNickname(), peer0.getProfile_key()));
 	 		ArrayList<String> expectedfriends= new ArrayList<String>();
+	 		expectedfriends.add(peer2.getNickname());
 	 		expectedfriends.add(peer3.getNickname());
-	 		TimeUnit.SECONDS.sleep(1);
-	 		ArrayList<String> c= (ArrayList<String>) peer0.getFriendsList();
 	 		
-	 		assertArrayEquals(expectedfriends.toArray(), peer0.getFriendsList().toArray());
+	 		//int d2=peer0.getConnector().hammingDistance(peer0.getProfile_key(), peer2.getProfile_key());
+	 		TimeUnit.SECONDS.sleep(2);
+	 		ArrayList<String> c= (ArrayList<String>) peer0.getConnector().getFriends();
+	 		//int d1=peer0.getConnector().hammingDistance(peer0.getProfile_key(), peer1.getProfile_key());
+	 		//int d2=peer0.getConnector().hammingDistance(peer0.getProfile_key(), peer2.getProfile_key());
+	 		//int d3=peer0.getConnector().hammingDistance(peer0.getProfile_key(), peer3.getProfile_key());
+	 		
+	 		for(String s: c)
+	 			System.out.println(s);
+	 		/*System.out.println(d1);
+	 		System.out.println(d2);
+	 		System.out.println(d3);*/
+	 		assertArrayEquals(expectedfriends.toArray(), c.toArray());
 	 		expectedfriends.remove(peer3.getNickname());
 	 		expectedfriends.add(peer2.getNickname());
 	 		expectedfriends.add("gruppo");
-	 		ArrayList<String> a= (ArrayList<String>) peer1.getFriendsList();
+	 		ArrayList<String> a= (ArrayList<String>) peer1.getConnector().getFriends();
 	 		
-	 		assertArrayEquals(expectedfriends.toArray(), peer1.getFriendsList().toArray());
+	 		assertArrayEquals(a.toArray(), peer1.getConnector().getFriends().toArray());
 	 	}
  
 
@@ -139,9 +161,9 @@ public class AppTest
  		TimeUnit.SECONDS.sleep(1);
  		ArrayList<String> expectedfriends= new ArrayList<String>();
  		expectedfriends.add("gruppo");
- 		ArrayList<String> a= (ArrayList<String>) peer1.getFriendsList();
+ 		ArrayList<String> a= (ArrayList<String>) peer1.getConnector().getFriends();
  		
- 		assertArrayEquals(expectedfriends.toArray(), peer1.getFriendsList().toArray());
+ 		assertArrayEquals(expectedfriends.toArray(), peer1.getConnector().getFriends().toArray());
  	}
 	@Test
     @Order (6)
@@ -154,6 +176,8 @@ public class AppTest
 		       		 questions.add("Mi sento a mio agio con le persone");
 		       		questions.add("Evito di assumermi molte responsabilità");
 		       		questions.add("Faccio amicizia facilmente");
+		       		questions.add("Mi interessa il significato delle cose");
+		       		questions.add("Ho una vivida immaginazione");
 		assertEquals(questions, peer0.getConnector().getUserProfileQuestions());
 		assertArrayEquals(questions.toArray(), peer1.getConnector().getUserProfileQuestions().toArray());
  	}
@@ -187,7 +211,7 @@ public class AppTest
  		expectedfriendsSpam.add(peer1.getNickname());
  		ArrayList<String> a= (ArrayList<String>) peer0.getConnector().getSpamList();
  		
- 		assertArrayEquals(expectedfriendsSpam.toArray(), peer0.getConnector().getSpamList().toArray());
+ 		assertArrayEquals(expectedfriendsSpam.toArray(), a.toArray());
  	}
 	@Test
     @Order (10)
@@ -217,9 +241,10 @@ public class AppTest
  		
  		ArrayList<String> expectedfriendsSpam= new ArrayList<String>();
  		expectedfriendsSpam.add(peer2.getNickname());
+ 		TimeUnit.SECONDS.sleep(1);
  		ArrayList<String> a= (ArrayList<String>) peer0.getConnector().getSpamList();
  		
- 		assertArrayEquals(expectedfriendsSpam.toArray(), peer0.getConnector().getSpamList().toArray());
+ 		assertArrayEquals(expectedfriendsSpam.toArray(), a.toArray());
  	}
 
 }

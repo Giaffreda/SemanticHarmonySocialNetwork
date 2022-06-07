@@ -64,7 +64,9 @@ public User(String nickname,int id, String adress) {
 								
 								connector.getmultichat(nickname, a.getNickname());
 								} else {
+									System.out.println(nickname+ "pre add "+ a.getNickname());
 									connector.addFriends(a.getNickname(), sender);
+									System.out.println(nickname+ "add "+ a.getNickname());
 									}
  						
  			}
@@ -219,7 +221,7 @@ public int getId() {
 public void setId(int id) {
 	this.Id = id;
 }
-public List getFriendsList() {
+public void getFriendsList() {
 	TextIO textIO = TextIoFactory.getTextIO();
 	int i=0;
 		ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
@@ -228,7 +230,7 @@ public List getFriendsList() {
 			i++;
 		}
 		
-	return connector.getFriends();
+	//return connector.getFriends();
 }
 public void setFriendsList(List <Object[]> freindsList) {
 	this.friendsList = freindsList;
