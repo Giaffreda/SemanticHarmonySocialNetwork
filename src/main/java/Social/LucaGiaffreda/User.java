@@ -3,6 +3,7 @@ package Social.LucaGiaffreda;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
@@ -18,15 +19,99 @@ private List <Object[]> friendsList;
 private int Id;
 private SemanticHarmonySocialNetworkImpl connector;
 private List <Message> spamMessages;
+private Thread thread;
+private LinkedBlockingQueue<Message> messageQueue;
 public User(String nickname,int id, String adress) {
 	this.nickname = nickname;
 	
 	this.Id = id;
+	class Worker implements Runnable{
+		int myid;
+        public Worker(int id){
+            myid= id;
+        }
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			 while(!Thread.interrupted()){
+				  try {
+					Message msg = messageQueue.take();
+					TextIO textIO = TextIoFactory.getTextIO();
+	 				TextTerminal terminal = textIO.getTextTerminal();
+	 				;
+	 					
+	 					
+	 						Message a = (Message) msg;
+	 						try {
+	 						if(a.getMytype()==Message.type.friends) {
+	 							if(a.getText().equals("exit"))
+	 								connector.removeFriends(a.getNickname(), a.getSender());
+	 							else
+	 								connector.setFriends(nickname, a.getNickname(),a.getSender());
+	 			 				
+							
+							}else if(a.getMytype()==Message.type.chat){
+								ArrayList<String> spam=(ArrayList<String>) connector.getSpamList();
+								
+								if(spam.contains(a.getNickname())) {
+									addSpamMessages(a);
+									
+								}else {
+									terminal.printf("\n"+myid+"] (Message Received by "+a.getNickname()+" ) message = "+a.getText()+"\n\n");
+									
+								}
+								}else if(a.getMytype()==Message.type.multichat){
+									
+									connector.getmultichat(nickname, a.getNickname());
+									} else {
+										System.out.println(nickname+ "PRE add "+ a.getNickname());
+										connector.addFriends(a.getNickname(), a.getSender());
+										System.out.println(nickname+ "add "+ a.getNickname());
+										}
+	 						}
+	 			 			 catch (IOException e) {
+	 						
+	 							e.printStackTrace();
+	 						}
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				  
+				  }
+			 }	  		
+	} 
+
 	try {
 		
-		
-		
 		class MessageListenerImpl implements MessageListener{
+
+	        public MessageListenerImpl(int id)
+	        {
+	            messageQueue = new LinkedBlockingQueue<>();
+	            thread = new Thread(new Worker(id));
+	            thread.start();
+	        }
+
+	        @Override
+	        public Object parseMessage(PeerAddress sender,Object obj) {
+	            Message msg = (Message) obj;
+	            try {
+	            	msg.setSender(sender);
+	                messageQueue.put(msg);
+	            } catch (InterruptedException e) {
+	                e.printStackTrace();
+	            }
+	            return "success";
+	        }
+	    }
+			
+			
+				 
+			
+			
+		/*class MessageListenerImpl implements MessageListener{
  			int peerid;
  			
  			public MessageListenerImpl(int peerid)
@@ -64,7 +149,7 @@ public User(String nickname,int id, String adress) {
 								
 								connector.getmultichat(nickname, a.getNickname());
 								} else {
-									System.out.println(nickname+ "pre add "+ a.getNickname());
+									System.out.println(nickname+ "PRE add "+ a.getNickname());
 									connector.addFriends(a.getNickname(), sender);
 									System.out.println(nickname+ "add "+ a.getNickname());
 									}
@@ -76,7 +161,7 @@ public User(String nickname,int id, String adress) {
 			}
 						return "success";
  			}
-		}
+		}*/
 		connector =new SemanticHarmonySocialNetworkImpl(id, adress, new MessageListenerImpl(id));
 		spamMessages=new ArrayList<Message>();
 	} catch (Exception e) {

@@ -122,6 +122,7 @@ public class AppTest
 	 		
 	 		/*ArrayList<Integer>answer0=new ArrayList<Integer>();
 	 		answer0.addAll(Arrays.asList(0,3,3,2,3));*/
+	 		for(int i=0;i<1;i++) {
 	 		ArrayList<Integer>answer0=new ArrayList<Integer>();
 	 		answer0.addAll(Arrays.asList(0,3,3,3,3,2,2));
 	 		peer0.setProfile_key(peer0.getConnector().createAuserProfileKey(answer0));
@@ -131,7 +132,7 @@ public class AppTest
 	 		expectedfriends.add(peer3.getNickname());
 	 		
 	 		//int d2=peer0.getConnector().hammingDistance(peer0.getProfile_key(), peer2.getProfile_key());
-	 		TimeUnit.SECONDS.sleep(2);
+	 		TimeUnit.SECONDS.sleep(1);
 	 		ArrayList<String> c= (ArrayList<String>) peer0.getConnector().getFriends();
 	 		//int d1=peer0.getConnector().hammingDistance(peer0.getProfile_key(), peer1.getProfile_key());
 	 		//int d2=peer0.getConnector().hammingDistance(peer0.getProfile_key(), peer2.getProfile_key());
@@ -149,6 +150,7 @@ public class AppTest
 	 		ArrayList<String> a= (ArrayList<String>) peer1.getConnector().getFriends();
 	 		
 	 		assertArrayEquals(a.toArray(), peer1.getConnector().getFriends().toArray());
+	 		}
 	 	}
  
 

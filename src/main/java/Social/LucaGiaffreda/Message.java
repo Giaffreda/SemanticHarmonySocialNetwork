@@ -15,6 +15,7 @@ public class Message implements Serializable
     private int peerId;
   
     private String Nickname;
+    private PeerAddress sender;
     public enum type{chat,friends,response,multichat}
     private type mytype;
     public Message(String text,int peerId,String Nickname) {
@@ -49,6 +50,12 @@ public class Message implements Serializable
 	};
 	public String toString() {
 		return " text= "+text+" peerId= "+peerId+" nickname= "+Nickname+" type ="+mytype;
+	}
+	public PeerAddress getSender() {
+		return sender;
+	}
+	public void setSender(PeerAddress sender) {
+		this.sender = sender;
 	}
 	
 }
