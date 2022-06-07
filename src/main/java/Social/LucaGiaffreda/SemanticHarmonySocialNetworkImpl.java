@@ -510,6 +510,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						peers_on_topic = (HashSet<PeerAddress>) futureGet2.dataMap().values().iterator().next().object();
 			        		for(PeerAddress peer:peers_on_topic)
 						{
+			        			System.out.println("send group message");
 							FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 							futureDirect.awaitUninterruptibly();
 						}
