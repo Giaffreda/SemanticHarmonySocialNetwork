@@ -62,12 +62,14 @@ public User(String nickname,int id, String adress) {
 									
 								}
 								}else if(a.getMytype()==Message.type.multichat){
-									
+									System.out.println(nickname+ "PRE group "+ a.getNickname());
 									System.out.println(nickname+connector.getmultichat(nickname, a.getNickname()));
+									System.out.println(nickname+ "froup "+ a.getNickname());
+									
 									} else {
-										System.out.println(nickname+ "PRE add "+ a.getNickname());
+										//System.out.println(nickname+ "PRE add "+ a.getNickname());
 										connector.addFriends(a.getNickname(), a.getSender());
-										System.out.println(nickname+ "add "+ a.getNickname());
+										//System.out.println(nickname+ "add "+ a.getNickname());
 										}
 	 						}
 	 			 			 catch (IOException e) {
