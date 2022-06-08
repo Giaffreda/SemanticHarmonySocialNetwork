@@ -208,13 +208,13 @@ public boolean removeSpam() throws IOException {
 	int i=0;
 	ArrayList<String>friends= (ArrayList<String>) connector.getSpamList();
 	if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi conoscere la lista di amici in spam")) {
-		if(friends!=null) {
+		if(!friends.isEmpty()) {
 		while (i<friends.size()) {
 			System.out.println("friends n "+i+" "+friends.get(i));
 			i++;
 		}
 		}
-		if(friends!=null)
+		if(!friends.isEmpty())
 		while(textIO.newBooleanInputReader().withDefaultValue(false).read("\n vuoi rimuovere amici agli spam?\n")) {
 			int choise=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
 			nickfreinds.add(friends.get(choise));
