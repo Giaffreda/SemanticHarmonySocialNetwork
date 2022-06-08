@@ -219,7 +219,9 @@ public boolean removeSpam() throws IOException {
 			int choise=textIO.newIntInputReader().withDefaultValue(0).read("/n n friends");
 			nickfreinds.add(friends.get(choise));
 			}
-	
+		else {
+			return true;
+		}
 		}
 	return connector.removeSpam(nickfreinds);
 }
