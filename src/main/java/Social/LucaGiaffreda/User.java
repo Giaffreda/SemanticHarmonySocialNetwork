@@ -58,18 +58,14 @@ public User(String nickname,int id, String adress) {
 									addSpamMessages(a);
 									
 								}else {
-									terminal.printf("\n"+myid+"] (Message Received by "+a.getNickname()+" ) message = "+a.getText()+"\n\n");
+									terminal.printf("\n (Message Received by "+a.getNickname()+" ) message = "+a.getText()+"\n\n");
 									
 								}
 								}else if(a.getMytype()==Message.type.multichat){
-									System.out.println(nickname+ "PRE group "+ a.getNickname());
-									System.out.println(nickname+connector.getmultichat(nickname, a.getNickname()));
-									System.out.println(nickname+ "froup "+ a.getNickname());
+									connector.addFriends(a.getNickname(), null);
 									
 									} else {
-										//System.out.println(nickname+ "PRE add "+ a.getNickname());
 										connector.addFriends(a.getNickname(), a.getSender());
-										//System.out.println(nickname+ "add "+ a.getNickname());
 										}
 	 						}
 	 			 			 catch (IOException e) {
@@ -113,57 +109,7 @@ public User(String nickname,int id, String adress) {
 				 
 			
 			
-		/*class MessageListenerImpl implements MessageListener{
- 			int peerid;
- 			
- 			public MessageListenerImpl(int peerid)
- 			{
- 				this.peerid=peerid;
- 				
- 			}
- 			public Object parseMessage(PeerAddress sender, Object obj) {
- 				
- 				TextIO textIO = TextIoFactory.getTextIO();
- 				TextTerminal terminal = textIO.getTextTerminal();
- 				;
- 					
- 					
- 						Message a = (Message) obj;
- 						try {
- 						if(a.getMytype()==Message.type.friends) {
- 							if(a.getText().equals("exit"))
- 								connector.removeFriends(a.getNickname(), sender);
- 							else
- 								connector.setFriends(nickname, a.getNickname(),sender);
- 			 				
-						
-						}else if(a.getMytype()==Message.type.chat){
-							ArrayList<String> spam=(ArrayList<String>) connector.getSpamList();
-							
-							if(spam.contains(a.getNickname())) {
-								addSpamMessages(a);
-								
-							}else {
-								terminal.printf("\n"+peerid+"] (Message Received by "+a.getNickname()+" ) message = "+a.getText()+"\n\n");
-								
-							}
-							}else if(a.getMytype()==Message.type.multichat){
-								
-								connector.getmultichat(nickname, a.getNickname());
-								} else {
-									System.out.println(nickname+ "PRE add "+ a.getNickname());
-									connector.addFriends(a.getNickname(), sender);
-									System.out.println(nickname+ "add "+ a.getNickname());
-									}
- 						
- 			}
- 			 catch (IOException e) {
-			
-				e.printStackTrace();
-			}
-						return "success";
- 			}
-		}*/
+		
 		connector =new SemanticHarmonySocialNetworkImpl(id, adress, new MessageListenerImpl(id));
 		spamMessages=new ArrayList<Message>();
 	} catch (Exception e) {

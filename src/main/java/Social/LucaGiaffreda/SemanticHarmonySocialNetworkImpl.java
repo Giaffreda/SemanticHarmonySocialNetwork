@@ -255,7 +255,6 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				if (futureGet.isSuccess()) {
 					test=new Message("prova", peerId,name);
 					test.setMytype(Message.type.response);
-					System.out.println("response from"+name+" to "+ profile);
 					FutureDirect futureDirect = _dht.peer().sendDirect(adress).object(test).start();
 					
 					futureDirect.awaitUninterruptibly();
@@ -449,7 +448,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				_dht.put(Number160.createHash(chatName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				
 				for (int i=0;i<peerfreinds.size();i++) {
-					//peers_on_topic.add(peerfreinds.get(i));
+					
 					FutureDirect futureDirect = _dht.peer().sendDirect(peerfreinds.get(i)).object(test).start();
 					futureDirect.awaitUninterruptibly();
 					
@@ -531,7 +530,6 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						peers_on_topic = (HashSet<PeerAddress>) futureGet2.dataMap().values().iterator().next().object();
 			        		for(PeerAddress peer:peers_on_topic)
 						{
-			        			System.out.println("send group message");
 							FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 							futureDirect.awaitUninterruptibly();
 						}
