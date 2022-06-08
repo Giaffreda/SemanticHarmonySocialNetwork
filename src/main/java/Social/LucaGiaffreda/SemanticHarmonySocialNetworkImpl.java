@@ -445,15 +445,17 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				addFriends(chatName, null);
 				test.setMytype(Message.type.multichat);
 				Number160 id= new Number160(peerId);
+				peers_on_topic.addAll(peerfreinds);
+				_dht.put(Number160.createHash(chatName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				
 				for (int i=0;i<peerfreinds.size();i++) {
-					peers_on_topic.add(peerfreinds.get(i));
+					//peers_on_topic.add(peerfreinds.get(i));
 					FutureDirect futureDirect = _dht.peer().sendDirect(peerfreinds.get(i)).object(test).start();
 					futureDirect.awaitUninterruptibly();
 					
 					
 				
 				}
-				_dht.put(Number160.createHash(chatName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				return true;
 			}return false;
 			} catch (Exception e) {

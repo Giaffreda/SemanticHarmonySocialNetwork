@@ -130,7 +130,9 @@ public class AppTest
 	 		ArrayList<String> expectedfriends= new ArrayList<String>();
 	 		expectedfriends.add(peer2.getNickname());
 	 		expectedfriends.add(peer3.getNickname());
-	 		
+	 		ArrayList<String> expectedfriends1= new ArrayList<String>();
+	 		expectedfriends1.add(peer3.getNickname());
+	 		expectedfriends1.add(peer2.getNickname());
 	 		//int d2=peer0.getConnector().hammingDistance(peer0.getProfile_key(), peer2.getProfile_key());
 	 		TimeUnit.SECONDS.sleep(1);
 	 		ArrayList<String> c= (ArrayList<String>) peer0.getConnector().getFriends();
@@ -144,6 +146,7 @@ public class AppTest
 	 		System.out.println(d2);
 	 		System.out.println(d3);*/
 	 		assertArrayEquals(expectedfriends.toArray(), c.toArray());
+	 		//assertTrue(expectedfriends.toArray().equals(c.toArray()) || expectedfriends1.toArray().equals(c.toArray()));
 	 		expectedfriends.remove(peer3.getNickname());
 	 		expectedfriends.add(peer2.getNickname());
 	 		expectedfriends.add("gruppo");
