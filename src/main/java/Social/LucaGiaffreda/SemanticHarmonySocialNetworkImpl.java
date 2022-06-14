@@ -61,13 +61,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	@Override
 	public List<String> getUserProfileQuestions() {
 		  FutureGet futureGet = _dht.get(Number160.createHash("question")).start();
-		  /*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-			 @Override
-			 public void operationComplete(FutureGet future) throws Exception {
-			
-					//System.out.println("complete" + profile);
-			 }
-			}).awaitListenersUninterruptibly();*/
+		
 		 
 		futureGet.awaitUninterruptibly();
 	        Message test;
@@ -152,13 +146,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	
 	public boolean join(String _profile_key, String _nick_name) {
 		FutureGet futureGet = _dht.get(Number160.createHash("userList")).start();
-		/*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-		 @Override
-		 public void operationComplete(FutureGet future) throws Exception {
-		
-				//System.out.println("complete" + profile);
-		 }
-		}).awaitListenersUninterruptibly();*/
+	
 	 
 	futureGet.awaitUninterruptibly();
 		if(futureGet.isSuccess()&&!futureGet.isEmpty()) {
@@ -197,13 +185,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	@Override
 	public List<String> getFriends() {
 		FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
-		/*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-		 @Override
-		 public void operationComplete(FutureGet future) throws Exception {
-		
-				//System.out.println("complete" + profile);
-		 }
-		}).awaitListenersUninterruptibly();*/
+	
 	 
 	futureGet.awaitUninterruptibly();
 		if(futureGet.isSuccess()&&!futureGet.isEmpty()) {
@@ -242,13 +224,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		  Message test;
 		  try {
 				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
-				/*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-				 @Override
-				 public void operationComplete(FutureGet future) throws Exception {
 				
-						//System.out.println("complete" + profile);
-				 }
-				}).awaitListenersUninterruptibly();*/
 			 
 			futureGet.awaitUninterruptibly();
 					addFriends(profile, adress);
@@ -273,13 +249,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		  Object [] newfriends= {profile,adress};
 		  try {
 				FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
-				/*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-					 @Override
-					 public void operationComplete(FutureGet future) throws Exception {
-					
-							//System.out.println("complete" + profile);
-					 }
-					}).awaitListenersUninterruptibly();*/
+			
 				 
 				futureGet.awaitUninterruptibly();
 				if (futureGet.isSuccess()) {
@@ -305,13 +275,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	  public boolean removeFriends(String profile, PeerAddress adress) throws IOException {
 		  try {
 				FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
-				/*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-				 @Override
-				 public void operationComplete(FutureGet future) throws Exception {
 				
-						//System.out.println("complete" + profile);
-				 }
-				}).awaitListenersUninterruptibly();*/
 			 
 			futureGet.awaitUninterruptibly();
 				if (futureGet.isSuccess()) {
@@ -339,62 +303,6 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 			return false;
 			}
-	  public boolean getmultichat(String name, String profile) throws IOException {
-		  try {
-				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
-				/*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-				 @Override
-				 public void operationComplete(FutureGet future) throws Exception {
-				
-						//System.out.println("complete" + profile);
-				 }
-				}).awaitListenersUninterruptibly();*/
-			 
-			futureGet.awaitUninterruptibly();
-				if (futureGet.isSuccess()&& (!profile.equals(name))) {
-					/*HashSet<PeerAddress> peers_on_topic;
-					if(futureGet.isEmpty() ) {
-						System.out.println("is empty");
-						return false;
-					}
-					
-					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-					System.out.println(name+" ha acquisito la lista");
-					Message test= new Message("si èunito alla chat", peerId, name);
-					//peers_on_topic.add(_dht.peer().peerAddress());
-					//_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
-					for(PeerAddress peer:peers_on_topic){
-						if(!(peer.peerId().equals(_dht.peer().peerAddress().peerId()))) {
-							FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
-							futureDirect.awaitUninterruptibly();
-							}
-					}*/
-					return addFriends(profile, null);
-					//return true;
-					
-				}
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-			return false;
-		  /*try {
-				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
-				futureGet.awaitUninterruptibly();
-				if (futureGet.isSuccess()) {
-					if(futureGet.isEmpty() ) return false;
-					HashSet<PeerAddress> peers_on_topic;
-					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-					System.out.println(name+" ha acquisito la lista");
-					peers_on_topic.add(_dht.peer().peerAddress());
-					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
-					addFriends(profile, null);
-					return true;
-				}
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-			return false;*/
-	  }
 	  public boolean searchFriends( String nickName, String profilekey) throws IOException {
 	    	FutureGet futureGet = _dht.get(Number160.createHash("userList")).start();
 			
@@ -463,16 +371,11 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			return false;
 		}
 	  
-	  public boolean groupChat2(String name, ArrayList<Integer> friends,ArrayList<String> nickFriends) {
+	  public boolean groupChat(String name, ArrayList<Integer> friends,ArrayList<String> nickFriends) {
 			
 			
 			 	FutureGet futureGet = _dht.get(Number160.createHash("friendsList"+peerId)).start();
-			 	/*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-			 @Override
-			 public void operationComplete(FutureGet future) throws Exception {
-			
-			 }
-			}).awaitListenersUninterruptibly();*/
+			 	
 			 	futureGet.awaitUninterruptibly();
 		 if(futureGet.isSuccess()) {
 		try {
@@ -553,13 +456,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			
 		  try {
 			  FutureGet futureGet = _dht.get(Number160.createHash("userList")).start();
-			  /*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-				 @Override
-				 public void operationComplete(FutureGet future) throws Exception {
-				
-						//System.out.println("complete" + profile);
-				 }
-				}).awaitListenersUninterruptibly();*/
+			
 			 
 			futureGet.awaitUninterruptibly();
 				if(futureGet.isSuccess()){
@@ -612,13 +509,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		}
 	  public boolean leaveNetwork(String nickname) {
 		  FutureGet futureGet = _dht.get(Number160.createHash("userList")).start();
-		  /*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-			 @Override
-			 public void operationComplete(FutureGet future) throws Exception {
-			
-					//System.out.println("complete" + profile);
-			 }
-			}).awaitListenersUninterruptibly();*/
+		
 		 
 		futureGet.awaitUninterruptibly();
 			if(futureGet.isSuccess()){
@@ -674,13 +565,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		  Message test;
 		  try {
 				FutureGet futureGet = _dht.get(Number160.createHash("spamList"+peerId)).start();
-				/*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-				 @Override
-				 public void operationComplete(FutureGet future) throws Exception {
 				
-						//System.out.println("complete" + profile);
-				 }
-				}).awaitListenersUninterruptibly();*/
 			 
 			futureGet.awaitUninterruptibly();
 				if (futureGet.isSuccess()) {
@@ -707,13 +592,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	  public boolean removeSpam(ArrayList<String> profile) throws IOException {
 		  try {
 				FutureGet futureGet = _dht.get(Number160.createHash("spamList"+peerId)).start();
-				/*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-				 @Override
-				 public void operationComplete(FutureGet future) throws Exception {
 				
-						//System.out.println("complete" + profile);
-				 }
-				}).awaitListenersUninterruptibly();*/
 			 
 			futureGet.awaitUninterruptibly();
 				if (futureGet.isSuccess()&&!futureGet.isEmpty()) {
@@ -734,14 +613,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 		public List<String> getSpamList() {
 			FutureGet futureGet = _dht.get(Number160.createHash("spamList"+peerId)).start();
-			/*futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
-			 @Override
-			 public void operationComplete(FutureGet future) throws Exception {
 			
-					//System.out.println("complete" + profile);
-			 }
-			}).awaitListenersUninterruptibly();*/
-		 
 		futureGet.awaitUninterruptibly();
 			if(futureGet.isSuccess()&&!futureGet.isEmpty()) {
 			try {

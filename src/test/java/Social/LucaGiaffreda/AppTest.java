@@ -99,11 +99,11 @@ public class AppTest
 	 		numberfriends.add(0);
 	 		numberfriends.add(1);
 	 		numberfriends.add(2);
-	 		assertFalse(peer1.getConnector().groupChat2("gruppo",numberfriends, nickFriends));
+	 		assertFalse(peer1.getConnector().groupChat("gruppo",numberfriends, nickFriends));
 	 		
 	 		numberfriends.remove(2);
 	 		nickFriends.remove("not friends");
-	 		assertTrue(peer1.getConnector().groupChat2("gruppo",numberfriends, nickFriends));
+	 		assertTrue(peer1.getConnector().groupChat("gruppo",numberfriends, nickFriends));
 	 		
 	 		assertTrue(peer1.getConnector().sendMessage(2, peer0.getNickname(), "test group message"));
 	 	}
@@ -205,19 +205,7 @@ public class AppTest
  		
  		assertArrayEquals(expectedfriendsSpam.toArray(), a.toArray());
  	}
-	@Test
-    @Order (10)
-    @Disabled
-    void testCaseSeeSpamMessages() throws InterruptedException, IOException {
- 	
-		assertTrue(peer1.getConnector().sendMessage(0, peer1.getNickname(), "test message"));
- 		
- 		ArrayList<String> expectedfriendsSpam= new ArrayList<String>();
- 		expectedfriendsSpam.add(peer1.getNickname());
- 		ArrayList<String> a= (ArrayList<String>) peer0.getConnector().getSpamList();
- 		
- 		assertArrayEquals(expectedfriendsSpam.toArray(), peer0.getConnector().getSpamList().toArray());
- 	}
+
 
 	@Test
     @Order (8)

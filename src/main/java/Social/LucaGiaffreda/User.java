@@ -145,7 +145,7 @@ public boolean message() {
 	return connector.sendMessage(destination, nickname, message);
 	}
 
-public boolean groupChat2() {
+public boolean groupChat() {
 	ArrayList<Integer> peerfreinds=new ArrayList<Integer>();
 	ArrayList<String> nickfreinds=new ArrayList<String>();
 		
@@ -164,7 +164,7 @@ public boolean groupChat2() {
 			}
 		}
 	String name=textIO.newStringInputReader().withDefaultValue("gruppo").read("Inserisci nome gruppo");
-	return connector.groupChat2(name,peerfreinds,nickfreinds);
+	return connector.groupChat(name,peerfreinds,nickfreinds);
 }
 public boolean changeKey() {
 	List<String> question= new ArrayList<String>();

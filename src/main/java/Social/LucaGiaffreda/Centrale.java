@@ -34,15 +34,15 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 	 User user=new User(nick, id,adress);
 	 user.connect();
 	while(true) {
-		System.out.println("1 = exit");
-		System.out.println("2 = message");
-		System.out.println("3 = group chat");
-		System.out.println("4 = change key");
-		System.out.println("5 = see spam friends");
-		System.out.println("6 = add spam friend");
-		System.out.println("7 = remove spam friend");
-		System.out.println("8 = see spam message");
-		System.out.println("9 = see list freinds");
+		System.out.println("1 = esci");
+		System.out.println("2 = invia messaggio");
+		System.out.println("3 = chat di gruppo");
+		System.out.println("4 = cambia chiave");
+		System.out.println("5 = vedi spam friends");
+		System.out.println("6 = aggiungi amici in spam");
+		System.out.println("7 = rimuovi amici in spam");
+		System.out.println("8 = vedi spam message");
+		System.out.println("9 = vedi lista amici");
 		int option = textIO.newIntInputReader()
 				.withMaxVal(9)
 				.withMinVal(1)
@@ -60,7 +60,7 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 			user.message();
 			break;
 		case 3:
-			user.groupChat2();
+			user.groupChat();
 			break;
 		case 4:
 			user.changeKey( );
