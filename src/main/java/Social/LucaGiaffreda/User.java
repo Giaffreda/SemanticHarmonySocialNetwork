@@ -152,6 +152,7 @@ public boolean groupChat() {
 	TextIO textIO = TextIoFactory.getTextIO();
 	int i=0;
 		ArrayList<String>friends= (ArrayList<String>) connector.getFriends();
+		if(friends!=null) {
 		while (i<friends.size()) {
 			System.out.println("friends n "+i+" "+friends.get(i));
 			i++;
@@ -164,6 +165,8 @@ public boolean groupChat() {
 		
 	String name=textIO.newStringInputReader().withDefaultValue("gruppo").read("Inserisci nome gruppo");
 	return connector.groupChat(name,peerfreinds,nickfreinds);
+		}
+		return false;
 }
 public boolean changeKey() {
 	List<String> question= new ArrayList<String>();
