@@ -9,7 +9,8 @@ RUN mvn package
 
 FROM openjdk:8-jre-alpine
 WORKDIR /app
-
+ENV ADRESS=127.0.0.1 
+ENV ID=0
 COPY --from=1 /app/target/LucaGiaffreda-1.0-jar-with-dependencies.jar /app
 
 CMD /usr/bin/java -jar LucaGiaffreda-1.0-jar-with-dependencies.jar -a $ADRESS -id $ID
