@@ -11,6 +11,7 @@ Per costruire un immagine del Semantic harmony social network <pre><code>docker 
 Dopo aver creato l'immagine sarà possibile creare i container per creare il primo container va inserito il codice <pre><code> docker run -i --name MASTER-PEER -e ADRESS='127.0.0.1' -e ID=0 socialnetwork</pre></code> dando per scontato che sia quello il nome utilizzato
 In questo modo viene generato il Master Peer che deve essere generato sempre prima degli altri per il funzionamento del programma. In seguito è possibile avviare gli altri peer.
 Per avviare gli altri peer il codice necessario è <pre><code> docker run -i --name PEER-1 -e ADRESS='172.17.0.2' -e ID=1 socialnetwork</pre></code>
+Bisogna cambiare sia il valore dell'id che il valore sotto il parametro "--name".
 <h2> Funzionalità</h2>
 Una volta avviato, l'utente dovrà inserire il proprio nickname  e rispondere alle domande in base ai propri gusti. L'utente fornirà una risposta con una valutazione da 0 a 3, in base alle risposte verrà generata la chiave. L'utente si collega alla dht una volta inserito il nickname, ma effettua l'operazione join solo dopo aver ricevuto la chiave. Dopo aver effettuato l'operazione di join, all'utente sarà mostaro un menu con le operazioni aggiuntive che potrà effettuare.
 <h3> esci </h3>
