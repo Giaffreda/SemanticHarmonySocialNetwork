@@ -38,7 +38,7 @@ public static void main (String[] args)throws NumberFormatException, Exception {
 		System.out.println("2 = invia messaggio");
 		System.out.println("3 = chat di gruppo");
 		System.out.println("4 = cambia chiave");
-		System.out.println("5 = vedi spam friends");
+		System.out.println("5 = vedi amici in spam");
 		System.out.println("6 = aggiungi amici in spam");
 		System.out.println("7 = rimuovi amici in spam");
 		System.out.println("8 = vedi spam message");
